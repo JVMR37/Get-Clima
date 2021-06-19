@@ -3,7 +3,6 @@ package com.jvmr.getclima.service;
 import android.os.AsyncTask;
 
 import com.google.gson.Gson;
-import com.jvmr.getclima.model.PrevisaoTempoModel;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

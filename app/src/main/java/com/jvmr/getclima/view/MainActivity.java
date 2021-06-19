@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jvmr.getclima.R;
-import com.jvmr.getclima.datasource.ClimaTempoDataSource;
+import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,9 +14,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ClimaTempoDataSource climaTempoDataSource = ClimaTempoDataSource.getInstance();
+        HGDataSource api = HGDataSource.getInstance();
 
-        CidadeModel cidadeModel = climaTempoDataSource.buscarCidadePorId("3477");
+        CidadeModel cidadeModel = api.buscarCidadePorGeoLoc(-20.4435f, -54.6478f);
         if (cidadeModel != null)
             System.out.println(cidadeModel.toString());
     }
