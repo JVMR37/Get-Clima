@@ -1,6 +1,5 @@
 package com.jvmr.getclima.datasource;
 
-import com.google.gson.Gson;
 import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.service.HttpService;
 
@@ -12,7 +11,6 @@ import java.util.concurrent.ExecutionException;
 public class HGDataSource {
     static final private String baseURL = "https://api.hgbrasil.com/weather/";
     static final private String key = "3a0b1b47";
-    final private Gson gson = new Gson();
 
     private static HGDataSource instance;
 
@@ -32,7 +30,6 @@ public class HGDataSource {
             JSONObject reader = new JSONObject(retorno.toString());
             JSONObject results = reader.getJSONObject("results");
             cidadeModel = CidadeModel.readJSON(results);
-            // cidadeModel = gson.fromJson(retorno.toString(), CidadeModel.class);
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
         }
