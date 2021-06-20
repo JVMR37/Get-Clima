@@ -4,6 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.PerfilActivity">
+    tools:context=".view.PerfilActivity"
+    android:background="@drawable/gradient_backgroud">
+
+    <LinearLayout
+        android:layout_width="411dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="180dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edtNome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:ems="13"
+            android:hint="@string/hint_nome"
+            android:inputType="textPersonName"
+            android:textColorHint="@color/fade_out_white" />
+
+        <EditText
+            android:id="@+id/edtNovoEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/white"
+            android:ems="13"
+            android:hint="@string/hint_Email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/fade_out_white" />
+
+        <Button
+            android:id="@+id/btnSalvarMudancas"
+            android:onClick="salvarDados"
+            android:layout_width="175dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/ligth_yellow"
+            android:text="@string/btnSalvar" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
