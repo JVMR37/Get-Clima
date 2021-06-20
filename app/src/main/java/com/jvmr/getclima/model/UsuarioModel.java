@@ -1,19 +1,28 @@
 package com.jvmr.getclima.model;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.jvmr.getclima.service.Untils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UsuarioModel {
-    private String id;
     private String nomeCompleto;
     private String email;
-    private  String fotoPefilURL;
+    private String fotoPerfilURL;
     private List<String> cidadesIds;
+    private FirebaseUser firebaseUser;
 
-    public UsuarioModel(String id, String nomeCompleto, String email, List<String> cidadesIds) {
-        this.id = id;
+    public UsuarioModel(String nomeCompleto, String email, List<String> cidadesIds) {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
         this.cidadesIds = cidadesIds;
+    }
+
+    public UsuarioModel() {
+
     }
 
     public String getNomeCompleto() {
@@ -38,5 +47,27 @@ public class UsuarioModel {
 
     public void setCidadesIds(List<String> cidadesIds) {
         this.cidadesIds = cidadesIds;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> userMap = new HashMap<>();
+
+        userMap.put("nomeCompleto", getNomeCompleto());
+        userMap.put("email", getEmail());
+        userMap.put("cidadesIds", getCidadesIds());
+
+        return userMap;
+    }
+
+    public UsuarioModel fromMap(Map<String, Object> usuarioMap) {
+        List<String> cidadesIds = new ArrayList<>();
+
+        cidadesIds = Untils.convertObjectToListString(usuarioMap.get("cidadesIds"));
+
+        UsuarioModel usuarioModel =  new UsuarioModel(String.valueOf(usuarioMap.get("nomeCompleto")),
+                String.valueOf(usuarioMap.get("email")),
+                cidadesIds);
+
+    return  usuarioModel;
     }
 }
