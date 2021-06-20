@@ -1,5 +1,6 @@
 package com.jvmr.getclima.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -7,7 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.jvmr.getclima.R;
 import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
@@ -15,6 +22,7 @@ import com.jvmr.getclima.model.CidadeModel;
 public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail;
     private EditText edtSenha;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +32,22 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtSenha = findViewById(R.id.edtSenha);//hash
 
+        mAuth = FirebaseAuth.getInstance();
+
         HGDataSource api = HGDataSource.getInstance();
         CidadeModel cidadeModel = api.buscarCidadePorGeoLoc(-20.4435f, -54.6478f);
         if (cidadeModel != null)
             System.out.println(cidadeModel.toString());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            //TODO: Encaminhar para Tela Principal
+        }
     }
 
     public void logar(View view) {
@@ -35,8 +55,24 @@ public class LoginActivity extends AppCompatActivity {
         email = edtEmail.getText().toString();
         senha = edtSenha.getText().toString();
 
-        //email -> salvar no banco
-        //senha -> salvar no banco
+        mAuth.signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            Toast.makeText(LoginActivity.this, "Seja Bem-Vindo ao Get Clima : )",
+                                    Toast.LENGTH_SHORT).show();
+                            //TODO: Encaminhar para Tela Principal
+
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Não foi possível logar com esse usuário : (",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
         //Intent it = new Intent(LoginActivity.this, PrincipalActivity.class);// --> leva para a tela principal
         //startActivity(it);
