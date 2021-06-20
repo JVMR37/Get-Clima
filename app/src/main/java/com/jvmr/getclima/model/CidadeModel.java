@@ -1,57 +1,113 @@
 package com.jvmr.getclima.model;
 
-public class CidadeModel {
-    private Integer id;
-    private String name;
-    private String state;
-    private String country;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    public CidadeModel(Integer id, String name, String state, String country) {
-        this.id = id;
-        this.name = name;
-        this.state = state;
-        this.country = country;
+public class CidadeModel {
+    private int id;
+    private int temperatura;
+    private String data;
+    private String cod_condicao;
+    private String descricao;
+    private int umidade;
+    private String velocidade_vento;
+    private String slug_condicao;
+    private String city;
+
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city) {
+        this.id = -1;
+        this.temperatura = temperatura;
+        this.data = data;
+        this.cod_condicao = cod_condicao;
+        this.descricao = descricao;
+        this.umidade = umidade;
+        this.velocidade_vento = velocidade_vento;
+        this.slug_condicao = slug_condicao;
+        this.city = city;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getTemperatura() {
+        return temperatura;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTemperatura(int temperatura) {
+        this.temperatura = temperatura;
     }
 
-    public String getState() {
-        return state;
+    public String getData() {
+        return data;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setData(String data) {
+        this.data = data;
     }
 
-    public String getCountry() {
-        return country;
+    public String getCod_condicao() {
+        return cod_condicao;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setCod_condicao(String cod_condicao) {
+        this.cod_condicao = cod_condicao;
     }
 
-    @Override
-    public String toString() {
-        return "CidadeModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public int getUmidade() {
+        return umidade;
+    }
+
+    public void setUmidade(int umidade) {
+        this.umidade = umidade;
+    }
+
+    public String getVelocidade_vento() {
+        return velocidade_vento;
+    }
+
+    public void setVelocidade_vento(String velocidade_vento) {
+        this.velocidade_vento = velocidade_vento;
+    }
+
+    public String getSlug_condicao() {
+        return slug_condicao;
+    }
+
+    public void setSlug_condicao(String slug_condicao) {
+        this.slug_condicao = slug_condicao;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public static CidadeModel readJSON(JSONObject json) throws JSONException {
+        int temperatura = json.getInt("temp");
+        String data = json.getString("date");
+        String cod_condicao = json.getString("condition_code");
+        String descricao = json.getString("description");
+        int umidade = json.getInt("humidity");
+        String velocidade_vento = json.getString("wind_speedy");
+        String slug_condicao = json.getString("condition_slug");
+        String city = json.getString("city");
+
+        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city);
     }
 }
