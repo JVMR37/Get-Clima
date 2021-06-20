@@ -14,11 +14,14 @@
         android:theme="@style/Theme.GetClima"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.PerfilActivity"></activity>
-        <activity android:name=".view.LoginActivity"
+        <activity android:name=".view.CadastroActivity"></activity>
+        <activity android:name=".view.PerfilActivity" />
+        <activity
+            android:name=".view.LoginActivity"
             android:theme="@style/Theme.GetClima.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
