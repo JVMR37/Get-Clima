@@ -65,7 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             Toast.makeText(LoginActivity.this, "Seja Bem-Vindo ao Get Clima : )",
                                     Toast.LENGTH_SHORT).show();
-                            //TODO: Encaminhar para Tela Principal
+                            //Intent it = new Intent(LoginActivity.this, PrincipalActivity.class);// --> leva para a tela principal
+                            //startActivity(it);
 
                         } else {
                             Toast.makeText(LoginActivity.this, "Não foi possível logar com esse usuário : (",
@@ -74,7 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-        //Intent it = new Intent(LoginActivity.this, PrincipalActivity.class);// --> leva para a tela principal
-        //startActivity(it);
+
+    }
+
+    public void abrirCadastro(View view){
+        Intent it = new Intent(LoginActivity.this, CadastroActivity.class);
+        startActivity(it);
     }
 }

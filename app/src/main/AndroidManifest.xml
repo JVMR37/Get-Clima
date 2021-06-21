@@ -14,7 +14,7 @@
         android:theme="@style/Theme.GetClima"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.CadastroActivity"></activity>
+        <activity android:name=".view.CadastroActivity" />
         <activity android:name=".view.PerfilActivity" />
         <activity
             android:name=".view.LoginActivity"

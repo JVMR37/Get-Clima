@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,18 +19,25 @@ import com.jvmr.getclima.model.UsuarioModel;
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     UsuarioModel usuarioModel;
+    private EditText edtNome, edtEmail, edtSenha, edtConfirmaSenha;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+        setTitle("Cadastro");
+
+        edtNome = findViewById(R.id.edtNome);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtSenha = findViewById(R.id.edtSenha);//hash
+        edtConfirmaSenha = findViewById(R.id.edtConfirmaSenha);//hash
 
         usuarioModel = new UsuarioModel();
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void cadastrarUsuario(String password) {
+    public void cadastrarUsuario(String password) {// Acho que náo precisa receber password como parametro !!
         mAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
