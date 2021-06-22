@@ -65,8 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             Toast.makeText(LoginActivity.this, "Seja Bem-Vindo ao Get Clima : )",
                                     Toast.LENGTH_SHORT).show();
-                            //Intent it = new Intent(LoginActivity.this, PrincipalActivity.class);// --> leva para a tela principal
-                            //startActivity(it);
+                            Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
+                            startActivity(it);
 
                         } else {
                             Toast.makeText(LoginActivity.this, "Não foi possível logar com esse usuário : (",
