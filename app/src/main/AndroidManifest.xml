@@ -25,6 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity android:name=".view.MainActivity"
+            android:theme="@style/Theme.GetClima.NoActionBar"/>
+    </application>
 </manifest>

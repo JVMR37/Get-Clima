@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,8 +21,8 @@ import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText edtEmail;
-    private EditText edtSenha;
+    private TextInputLayout edtEmail;
+    private TextInputLayout edtSenha;
     private FirebaseAuth mAuth;
 
     @Override
@@ -52,8 +53,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logar(View view) {
         String email, senha;//hash senha
-        email = edtEmail.getText().toString();
-        senha = edtSenha.getText().toString();
+        email = edtEmail.getEditText().toString();
+        senha = edtSenha.getEditText().toString();
 
         mAuth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -63,13 +64,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Toast.makeText(LoginActivity.this, "Seja Bem-Vindo ao Get Clima : )",
+                            Toast.makeText(LoginActivity.this, "Seja Bem-Vindo ao Get Clima :)",
                                     Toast.LENGTH_SHORT).show();
                             Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
                             startActivity(it);
 
                         } else {
-                            Toast.makeText(LoginActivity.this, "Não foi possível logar com esse usuário : (",
+                            Toast.makeText(LoginActivity.this, "Não foi possível logar com esse usuário :(",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -80,6 +81,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void abrirCadastro(View view){
         Intent it = new Intent(LoginActivity.this, CadastroActivity.class);
+        startActivity(it);
+    }
+
+    public void testar(View view){
+        Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
         startActivity(it);
     }
 }

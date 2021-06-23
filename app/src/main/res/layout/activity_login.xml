@@ -7,70 +7,93 @@
     tools:context=".view.LoginActivity"
     android:background="@drawable/gradient_backgroud">
 
+
     <LinearLayout
-        android:layout_width="411dp"
-        android:layout_height="125dp"
-        android:layout_marginBottom="240dp"
+        android:layout_width="383dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="264dp"
+        android:background="@drawable/box"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="325dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="@string/hint_Email"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/fade_out_white" />
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
 
-        <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtSenha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/white"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="325dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
             android:ems="10"
+            android:layout_marginBottom="40dp"
             android:hint="@string/hint_senha"
-            android:inputType="textPassword"
-            android:textColorHint="@color/fade_out_white" />
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="175dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/amarelo"
+            android:onClick="testar"
+            android:text="@string/btnLogin" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="168dp"
-        android:backgroundTint="@color/ligth_yellow"
-        android:onClick="logar"
-        android:text="@string/btnLogin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/btnCadastrar"
-        android:onClick="abrirCadastro"
         android:layout_width="175dp"
         android:layout_height="50dp"
         android:layout_marginEnd="116dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="180dp"
         android:backgroundTint="@color/ligth_yellow"
+        android:onClick="abrirCadastro"
         android:text="@string/btnCadastro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="324dp"
-        android:layout_height="253dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="454dp"
+        android:layout_height="229dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="23dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_getclima" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

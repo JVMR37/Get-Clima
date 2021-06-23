@@ -5,7 +5,7 @@
     <string name="hint_senha">Senha</string>
     <string name="hint_Csenha">Confirmar Senha</string>
     <string name="btnSalvar">Salvar</string>
-    <string name="btnLogin">Login</string>
+    <string name="btnLogin">Entrar</string>
     <string name="btnCadastro">Cadastre-se</string>
     <string name="title_activity_principal">PrincipalActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
