@@ -10,6 +10,8 @@
     <color name="fade_out_white">#CCFFFFFF</color>
     <color name="ligth_blue">#1CC2fC</color>
     <color name="ligth_yellow">#ffc963</color>
-    <color name="amarelo">#FFCA0A</color>
+    <color name="amarelo">#FFDA53</color>
     <color name="cinza">#dfe6e9</color>
+    <color name="azul_claro">#1D70F1</color>
+    <color name="azul_escuro">#1AC8FB</color>
 </resources>
