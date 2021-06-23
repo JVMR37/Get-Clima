@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.jvmr.getclima.InicioFragment;
 import com.jvmr.getclima.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -51,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_addCidades:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new CidadesFragment()).commit();
+                break;
+            case R.id.nav_inicio:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new InicioFragment()).commit();
                 break;
 
         }
