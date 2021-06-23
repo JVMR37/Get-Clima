@@ -7,7 +7,8 @@
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
     tools:context=".view.MainActivity"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@drawable/background_principal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,8 +18,9 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#e28743"
+            android:background="#00FFFFFF"
             android:id="@+id/toolbar"
+            app:title="@string/vazio"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:elevation="4dp"/>
@@ -37,6 +39,5 @@
         android:id="@+id/nav_view"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_menu"/>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

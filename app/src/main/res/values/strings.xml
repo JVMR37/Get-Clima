@@ -18,5 +18,8 @@
     <string name="txtCadastro">Ainda não possui uma conta?</string>
     <string name="txtCadastroTela">Cadastro</string>
     <string name="txtPerfilTela">Perfil</string>
+    <string name="vazio">ㅤ</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
