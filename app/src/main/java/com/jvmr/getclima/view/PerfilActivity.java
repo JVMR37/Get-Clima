@@ -7,16 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.jvmr.getclima.R;
 
 public class PerfilActivity extends AppCompatActivity {
-    private EditText edtNome, edtNovoEmail;
+    private TextInputLayout edtNome, edtNovoEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
-        this.setTitle("Meus dados");
 
         edtNome = findViewById(R.id.edtNome);
         edtNovoEmail = findViewById(R.id.edtNovoEmail);
@@ -24,8 +24,8 @@ public class PerfilActivity extends AppCompatActivity {
 
     public void salvarDados(View view) {
         String nome, email;
-        nome = edtNome.getText().toString();
-        email = edtNovoEmail.getText().toString();
+        nome = edtNome.getEditText().toString();
+        email = edtNovoEmail.getEditText().toString();
 
         //nome -> salvar no banco
         //email -> salvar no banco

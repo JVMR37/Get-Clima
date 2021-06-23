@@ -16,5 +16,7 @@
     <string name="action_settings">Settings</string>
     <string name="contentLogo">Logo do Aplicativo</string>
     <string name="txtCadastro">Ainda não possui uma conta?</string>
+    <string name="txtCadastroTela">Cadastro</string>
+    <string name="txtPerfilTela">Perfil</string>
 
 </resources>
