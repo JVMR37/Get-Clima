@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //if(savedInstanceState == null) {
-        //DEFINE QUAL FRAGMENTO VAI APARECER PRIMEIRO NA PRIMEIRA VEZ Q ABRIR O APP
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-        //new PerfilFragment()).commit();
-        //navigationView.setCheckedItem(R.id.nav_profile);
-        //}
+        if(savedInstanceState == null) {
+            //DEFINE QUAL FRAGMENTO VAI APARECER PRIMEIRO NA PRIMEIRA VEZ Q ABRIR O APP
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new InicioFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_inicio);
+        }
     }
 
     @Override

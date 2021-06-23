@@ -7,11 +7,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
     <color name="fade_out_white">#CCFFFFFF</color>
-    <color name="ligth_blue">#1CC2fC</color>
+
+    <!-- Amarelo Principal -->
     <color name="ligth_yellow">#ffc963</color>
-    <color name="amarelo">#FFDA53</color>
-    <color name="cinza">#dfe6e9</color>
+
+    <!-- Dia - Principal -->
     <color name="azul_escuro">#1D70F1</color>
     <color name="azul_claro">#1AC8FB</color>
+
+    <!-- Noite -->
+    <color name="roxo_claro_noite">#0A439A</color>
+    <color name="roxo_noite">#5641C2</color>
+
+
 </resources>
