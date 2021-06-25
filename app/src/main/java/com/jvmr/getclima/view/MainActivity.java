@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
-import com.jvmr.getclima.InicioFragment;
 import com.jvmr.getclima.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -34,12 +33,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //if(savedInstanceState == null) {
+        if(savedInstanceState == null) {
         //DEFINE QUAL FRAGMENTO VAI APARECER PRIMEIRO NA PRIMEIRA VEZ Q ABRIR O APP
-        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-        //new PerfilFragment()).commit();
-        //navigationView.setCheckedItem(R.id.nav_profile);
-        //}
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+            new InicioFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_inicio);
+        }
     }
 
     @Override
