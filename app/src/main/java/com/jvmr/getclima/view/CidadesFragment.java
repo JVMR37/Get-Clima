@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class CidadesFragment extends Fragment {
-    Spinner spnrCidades;
+    Spinner spnrCidades, spnrEstados;
     ListView lvCidadesAdd;
 
 
@@ -36,6 +36,7 @@ public class CidadesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         spnrCidades = (Spinner) view.findViewById(R.id.spnrCidades);
+        spnrEstados = (Spinner) view.findViewById(R.id.spnrEstados);
         lvCidadesAdd = (ListView) view.findViewById(R.id.lvCidades);
 
     }
@@ -43,22 +44,30 @@ public class CidadesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        selecaoCidades();
+        selecaoEstados();
         cidadesAdicionadas();
     }
 
 
-    public void selecaoCidades(){
-        //TODO: recuperar as cidades disponíveis para escolher - cidadesDispo
+    public void selecaoEstados(){
+        //TODO: recuperar os estados dísponíveis
 
         //====Popula o spinner de cidades===
-        //ArrayAdapter adpt_cidades = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, cidadesDispo);
-        //adpt_cidades.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        //adpt_estados = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, estados);
+        //spnrEstados.setAdapter(adpt_estados);
+    }
+
+    public void selecaoCidades(){
+        //TODO: recupera cidades disponíveis a partir do estado selecionado
+
+        //====Popula o spinner de estados===
+        //ArrayAdapter<String> adpt_cidades = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, cidades);
         //spnrCidades.setAdapter(adpt_cidades);
+
     }
 
     public void cidadesAdicionadas(){
-        //TODO: recupera as cidades adicionadas do usuário - cidadesAdd
+        //TODO: recupera as cidades adicionadas do usuário
 
         //====Popula o listView====
         //CostumeArrayAdapter adpt = new CostumeArrayAdapter(requireActivity(), cidadesAdd);
