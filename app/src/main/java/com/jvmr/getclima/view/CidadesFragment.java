@@ -20,8 +20,8 @@ import java.util.List;
 
 
 public class CidadesFragment extends Fragment {
-    Spinner spnrCidades, spnrEstados;
-    ListView lvCidadesAdd;
+    private Spinner spnrCidades, spnrEstados;
+    private ListView lvCidadesAdd;
 
 
     @Nullable

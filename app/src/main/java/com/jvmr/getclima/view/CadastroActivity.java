@@ -37,7 +37,7 @@ public class CadastroActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public void cadastrarUsuario(String password) {// Acho que náo precisa receber password como parametro !!
+    public void cadastrarUsuario(String password) {
         mAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

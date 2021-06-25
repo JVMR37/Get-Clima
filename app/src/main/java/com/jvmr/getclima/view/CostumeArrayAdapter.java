@@ -47,8 +47,7 @@ public class CostumeArrayAdapter  extends ArrayAdapter {
             vh.img_trash.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v){
-                    Toast toast = Toast.makeText(context, "Aqui vai o código de remoção", Toast.LENGTH_SHORT);
-                    toast.show();
+                   //TODO: remoção de cidade salva
                 }
             });
 
