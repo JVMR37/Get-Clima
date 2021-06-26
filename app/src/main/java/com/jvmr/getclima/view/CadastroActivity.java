@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,12 +20,18 @@ import com.jvmr.getclima.model.UsuarioModel;
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     UsuarioModel usuarioModel;
+    private TextInputLayout edtNome, edtEmail, edtSenha, edtConfirmaSenha;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        edtNome = findViewById(R.id.edtNome);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtSenha = findViewById(R.id.edtSenha);//hash
+        edtConfirmaSenha = findViewById(R.id.edtConfirmaSenha);//hash
 
         usuarioModel = new UsuarioModel();
         mAuth = FirebaseAuth.getInstance();

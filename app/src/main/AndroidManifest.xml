@@ -14,8 +14,7 @@
         android:theme="@style/Theme.GetClima"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".view.CadastroActivity"></activity>
-        <activity android:name=".view.PerfilActivity" />
+        <activity android:name=".view.CadastroActivity" />
         <activity
             android:name=".view.LoginActivity"
             android:theme="@style/Theme.GetClima.NoActionBar">
@@ -25,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <activity android:name=".view.MainActivity"
+            android:theme="@style/Theme.GetClima.NoActionBar"/>
+    </application>
 </manifest>
