@@ -12,7 +12,7 @@ public class UsuarioModel {
     private String nomeCompleto;
     private String email;
     private String fotoPerfilURL;
-    private List<String> cidadesIds;
+    private List<String> cidadesIds = new ArrayList<>();
     private FirebaseUser firebaseUser;
 
     public UsuarioModel(String nomeCompleto, String email, List<String> cidadesIds) {
@@ -64,10 +64,21 @@ public class UsuarioModel {
 
         cidadesIds = Untils.convertObjectToListString(usuarioMap.get("cidadesIds"));
 
-        UsuarioModel usuarioModel =  new UsuarioModel(String.valueOf(usuarioMap.get("nomeCompleto")),
+        UsuarioModel usuarioModel = new UsuarioModel(String.valueOf(usuarioMap.get("nomeCompleto")),
                 String.valueOf(usuarioMap.get("email")),
                 cidadesIds);
 
-    return  usuarioModel;
+        return usuarioModel;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioModel{" +
+                "nomeCompleto='" + nomeCompleto + '\'' +
+                ", email='" + email + '\'' +
+                ", fotoPerfilURL='" + fotoPerfilURL + '\'' +
+                ", cidadesIds=" + cidadesIds +
+                ", firebaseUser=" + firebaseUser +
+                '}';
     }
 }
