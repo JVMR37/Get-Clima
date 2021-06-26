@@ -63,7 +63,7 @@
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/ligth_yellow"
             android:textColor="@color/black"
-            android:onClick="testar"
+            android:onClick="logar"
             android:text="@string/btnLogin" />
     </LinearLayout>
 
