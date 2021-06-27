@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class Previsao {
@@ -176,6 +177,22 @@ public class CidadeModel {
 
     public void setPrevisoes(Previsao[] previsoes) {
         this.previsoes = previsoes;
+    }
+
+    @Override
+    public String toString() {
+        return "CidadeModel{" +
+                "id=" + id +
+                ", temperatura=" + temperatura +
+                ", data='" + data + '\'' +
+                ", cod_condicao='" + cod_condicao + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", umidade=" + umidade +
+                ", velocidade_vento='" + velocidade_vento + '\'' +
+                ", slug_condicao='" + slug_condicao + '\'' +
+                ", city='" + city + '\'' +
+                ", previsoes=" + Arrays.toString(previsoes) +
+                '}';
     }
 
     public static CidadeModel readJSON(JSONObject json) throws JSONException {

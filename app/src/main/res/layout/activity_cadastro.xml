@@ -105,8 +105,8 @@
             android:layout_marginTop="80dp"
             android:backgroundTint="@color/ligth_yellow"
             android:text="@string/btnSalvar"
-            android:textColor="@color/black" />
-            <!--android:onClick="cadastrarUsuario"-->
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
     <TextView

@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
+
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent it = new Intent(LoginActivity.this, MainActivity.class);
@@ -54,8 +54,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void logar(View view) {
         String email, senha;//hash senha
-        email = edtEmail.getEditText().toString();
-        senha = edtSenha.getEditText().toString();
+        email = edtEmail.getEditText().getText().toString();
+        senha = edtSenha.getEditText().getText().toString();
 
         mAuth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -80,12 +80,12 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void abrirCadastro(View view){
+    public void abrirCadastro(View view) {
         Intent it = new Intent(LoginActivity.this, CadastroActivity.class);
         startActivity(it);
     }
 
-    public void testar(View view){
+    public void testar(View view) {
         Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
         startActivity(it);
     }
