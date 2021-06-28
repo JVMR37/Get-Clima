@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         email = edtEmail.getEditText().getText().toString();
         senha = edtSenha.getEditText().getText().toString();
 
+        //Tratamento caso o usuário tente logar e os campos estiverem vazios
         if(email.equals("") && senha.equals("")){
             Toast.makeText(LoginActivity.this, "É necessário preencher todos os campos",
                     Toast.LENGTH_LONG).show();
