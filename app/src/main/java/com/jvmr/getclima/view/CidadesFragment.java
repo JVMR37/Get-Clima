@@ -124,6 +124,13 @@ public class CidadesFragment extends Fragment {
 
     public void addCidade(){
         //TODO: adiciona ao banco a cidade adicionada
+
+        //verifica se a cidade a ser adicionada já esta na lista de cidades do usuário
+
+        //adicona cidades no banco do usário
+        Toast.makeText(getActivity(), "Cidade adicionada com sucesso!!",
+                Toast.LENGTH_LONG).show();
+        txtAddCidade.setText("Escolha uma cidade");
     }
 
 
