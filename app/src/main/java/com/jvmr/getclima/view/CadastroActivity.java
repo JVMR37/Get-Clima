@@ -53,6 +53,7 @@ public class CadastroActivity extends AppCompatActivity {
         usuarioModel.setEmail(edtEmail.getEditText().getText().toString());
         usuarioModel.setNomeCompleto(edtNome.getEditText().getText().toString());
 
+        //Tratamento caso o usuário tente criar uma senha com menos de 6 caracteres
         if(password.length()<6){
             Toast.makeText(CadastroActivity.this, "A senha precisa ter no minímo 6 caracteres",
                     Toast.LENGTH_LONG).show();
