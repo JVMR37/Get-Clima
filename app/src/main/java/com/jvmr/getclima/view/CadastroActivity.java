@@ -53,6 +53,11 @@ public class CadastroActivity extends AppCompatActivity {
         usuarioModel.setEmail(edtEmail.getEditText().getText().toString());
         usuarioModel.setNomeCompleto(edtNome.getEditText().getText().toString());
 
+        if(password.length()<6){
+            Toast.makeText(CadastroActivity.this, "A senha precisa ter no minímo 6 caracteres",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
 
         mAuth.createUserWithEmailAndPassword(usuarioModel.getEmail(), password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -68,7 +73,7 @@ public class CadastroActivity extends AppCompatActivity {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso : )",
+                                            Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso :)",
                                                     Toast.LENGTH_SHORT).show();
 
                                         }
@@ -77,7 +82,7 @@ public class CadastroActivity extends AppCompatActivity {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             Toast.makeText(CadastroActivity.this,
-                                                    "Conta criada com sucesso, porém não foi possível salvar as informações do usuário : (",
+                                                    "Conta criada com sucesso, porém não foi possível salvar as informações do usuário :(",
                                                     Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -85,7 +90,7 @@ public class CadastroActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("FirebaseAuth", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(CadastroActivity.this, "Nao foi possível realizar o Cadastro : (",
+                            Toast.makeText(CadastroActivity.this, "Nao foi possível realizar o Cadastro :(",
                                     Toast.LENGTH_SHORT).show();
                             // updateUI(null);
                         }
