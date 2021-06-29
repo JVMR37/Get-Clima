@@ -1,15 +1,19 @@
 package com.jvmr.getclima.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -17,13 +21,18 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jvmr.getclima.R;
-import com.jvmr.getclima.datasource.HGDataSource;
-import com.jvmr.getclima.model.CidadeModel;
 
 public class LoginActivity extends AppCompatActivity {
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSED_REQUEST_CODE = 1234;
+    private Boolean mLocationPermissionGranted = false;
+
     private TextInputLayout edtEmail;
     private TextInputLayout edtSenha;
     private FirebaseAuth mAuth;
+
+    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +44,11 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        HGDataSource api = HGDataSource.getInstance();
-        CidadeModel cidadeModel = api.buscarCidadePorGeoLoc(-20.4435f, -54.6478f);
-        if (cidadeModel != null)
-            System.out.println(cidadeModel.toString());
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            getLocationPermission();
+        }
     }
 
     @Override
@@ -58,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         senha = edtSenha.getEditText().getText().toString();
 
         //Tratamento caso o usuário tente logar e os campos estiverem vazios
-        if(email.equals("") && senha.equals("")){
+        if (email.equals("") && senha.equals("")) {
             Toast.makeText(LoginActivity.this, "É necessário preencher todos os campos",
                     Toast.LENGTH_LONG).show();
             return;
@@ -92,8 +102,44 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    public void testar(View view) {
-        Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
-        startActivity(it);
+    //    public void testar(View view) {
+//        Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
+//        startActivity(it);
+//    }
+//    public void testar() {
+//        db.collection("users")
+//                .document("78zqjmWhYChXpwWf7h3NJWZ9TuD2").get().addOnSuccessListener(
+//                new OnSuccessListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                        System.out.println("=====================================");
+//                        UsuarioModel usuarioModel = documentSnapshot.toObject(UsuarioModel.class);
+//
+//                        System.out.println(usuarioModel);
+//
+//
+//                        System.out.println("=====================================");
+//                    }
+//                }
+//        );
+//    }
+
+
+    private void getLocationPermission() {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this, permissions,
+                        LOCATION_PERMISSED_REQUEST_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, permissions,
+                    LOCATION_PERMISSED_REQUEST_CODE);
+        }
     }
 }
