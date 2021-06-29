@@ -7,10 +7,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +21,7 @@ import com.jvmr.getclima.R;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private FirebaseAuth firebaseAuth;
+    private TextView txtNomeUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        txtNomeUsuario = findViewById(R.id.txtNomeUsuario);
+        //TODO: recuperar nome do usuário
+
         if (savedInstanceState == null) {
-            //DEFINE QUAL FRAGMENTO VAI APARECER PRIMEIRO NA PRIMEIRA VEZ Q ABRIR O APP
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new InicioFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

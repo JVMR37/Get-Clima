@@ -48,6 +48,8 @@ public class CostumeArrayAdapter  extends ArrayAdapter {
                 @Override
                 public void onClick(View v){
                    //TODO: remoção de cidade salva
+                    Toast.makeText(context, "Cidade removida com sucesso!!",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
