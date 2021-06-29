@@ -1,7 +1,7 @@
 package com.jvmr.getclima.model;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.jvmr.getclima.service.Untils;
+import com.jvmr.getclima.service.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class UsuarioModel {
     public UsuarioModel fromMap(Map<String, Object> usuarioMap) {
         List<String> cidadesIds = new ArrayList<>();
 
-        cidadesIds = Untils.convertObjectToListString(usuarioMap.get("cidadesIds"));
+        cidadesIds = Utils.convertObjectToListString(usuarioMap.get("cidadesIds"));
 
         UsuarioModel usuarioModel = new UsuarioModel(String.valueOf(usuarioMap.get("nomeCompleto")),
                 String.valueOf(usuarioMap.get("email")),
