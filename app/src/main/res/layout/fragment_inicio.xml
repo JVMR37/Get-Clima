@@ -49,14 +49,29 @@
             tools:layout_editor_absoluteX="165dp"
             tools:layout_editor_absoluteY="168dp" />
 
-        <TextView
-            android:id="@+id/txtTemp"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="º"
-            android:textSize="65sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/txtTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="C"
+                android:textSize="65sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="º"
+                android:textSize="65sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -122,25 +137,101 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <ImageView
+                android:id="@+id/imgSunrise"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:src="@drawable/sunrise" />
+
+            <TextView
+                android:id="@+id/txtNas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="@string/nascer"
+                android:layout_gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtNascerDoSol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="6dp"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp"
+            >
+
+            <ImageView
+                android:id="@+id/imgSunset"
+                android:layout_width="39dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:src="@drawable/sunset" />
+
+            <TextView
+                android:id="@+id/txtPo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:text="@string/por"
+                android:layout_gravity="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/txtPorDoSol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:text="0"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <ImageView
+                android:id="@+id/imgMoisture"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:src="@drawable/moisture" />
 
             <TextView
                 android:id="@+id/txtU"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 android:text="@string/umidade"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                />
 
             <TextView
                 android:id="@+id/txtUmidade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 android:text="0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -150,13 +241,22 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <ImageView
+                android:id="@+id/imgWind"
+                android:layout_width="44dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                tools:src="@drawable/wind" />
 
             <TextView
                 android:id="@+id/txtV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
                 android:text="@string/vento"
                 android:textSize="20sp" />
 
@@ -164,11 +264,16 @@
                 android:id="@+id/txtVento"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="6dp"
                 android:text="0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
