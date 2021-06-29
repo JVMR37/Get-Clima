@@ -1,6 +1,7 @@
 package com.jvmr.getclima.view;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -57,24 +58,6 @@ public class CadastroActivity extends AppCompatActivity {
             getLocationPermission();
         }
 
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            System.out.println("====================================");
-                            System.out.println(location.toString());
-                            cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
-                            System.out.println(cidadeAtual.toString());
-                            saveWeatherForecastForCurrentCity(cidadeAtual);
-                            System.out.println("====================================");
-
-                        }
-                    }
-                });
-
         edtNome = findViewById(R.id.edtNome);
         edtEmail = findViewById(R.id.edtNovoEmail);
         edtSenha = findViewById(R.id.edtSenha);//hash
@@ -88,6 +71,18 @@ public class CadastroActivity extends AppCompatActivity {
         btnCadastrar.setOnClickListener(
                 v -> cadastrarUsuario()
         );
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
+                            usuarioModel.addCidadeToList(cidadeAtual);
+                            saveWeatherForecastForCurrentCity(cidadeAtual);
+                        }
+                    }
+                });
     }
 
     public void cadastrarUsuario() {
@@ -118,7 +113,9 @@ public class CadastroActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso :)",
                                                     Toast.LENGTH_SHORT).show();
-
+                                            finish();
+                                            Intent it = new Intent(CadastroActivity.this, MainActivity.class);// --> leva para a tela principal
+                                            startActivity(it);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -131,11 +128,9 @@ public class CadastroActivity extends AppCompatActivity {
                                     });
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("FirebaseAuth", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CadastroActivity.this, "Nao foi possível realizar o Cadastro :(",
                                     Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
                         }
                     }
                 });
@@ -163,9 +158,8 @@ public class CadastroActivity extends AppCompatActivity {
     public void saveWeatherForecastForCurrentCity(CidadeModel cidadeAtual) {
         String date = Utils.getDateNow();
 
-
         db.collection("weatherForecasts")
-                .document(date + cidadeAtual.getCity())
+                .document(date + "-" + cidadeAtual.getCity())
                 .set(cidadeAtual.toMap())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

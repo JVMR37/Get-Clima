@@ -12,8 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,13 +24,10 @@ public class LoginActivity extends AppCompatActivity {
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
     private static final int LOCATION_PERMISSED_REQUEST_CODE = 1234;
-    private Boolean mLocationPermissionGranted = false;
 
     private TextInputLayout edtEmail;
     private TextInputLayout edtSenha;
     private FirebaseAuth mAuth;
-
-    private FusedLocationProviderClient fusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +39,10 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             getLocationPermission();
         }
     }
@@ -102,29 +98,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(it);
     }
 
-    //    public void testar(View view) {
-//        Intent it = new Intent(LoginActivity.this, MainActivity.class);// --> leva para a tela principal
-//        startActivity(it);
-//    }
-//    public void testar() {
-//        db.collection("users")
-//                .document("78zqjmWhYChXpwWf7h3NJWZ9TuD2").get().addOnSuccessListener(
-//                new OnSuccessListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                        System.out.println("=====================================");
-//                        UsuarioModel usuarioModel = documentSnapshot.toObject(UsuarioModel.class);
-//
-//                        System.out.println(usuarioModel);
-//
-//
-//                        System.out.println("=====================================");
-//                    }
-//                }
-//        );
-//    }
-
-
     private void getLocationPermission() {
         String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -132,7 +105,6 @@ public class LoginActivity extends AppCompatActivity {
                 FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
                     COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationPermissionGranted = true;
             } else {
                 ActivityCompat.requestPermissions(this, permissions,
                         LOCATION_PERMISSED_REQUEST_CODE);
