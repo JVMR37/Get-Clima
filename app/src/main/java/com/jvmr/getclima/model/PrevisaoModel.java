@@ -6,14 +6,14 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Previsao {
+public class PrevisaoModel {
     private String data;
     private int temp_max;
     private int temp_min;
     private String descricao;
     private String slug_condicao;
 
-    public Previsao(String data, int temp_max, int temp_min, String descricao, String slug_condicao) {
+    public PrevisaoModel(String data, int temp_max, int temp_min, String descricao, String slug_condicao) {
         this.data = data;
         this.temp_max = temp_max;
         this.temp_min = temp_min;
@@ -21,7 +21,7 @@ public class Previsao {
         this.slug_condicao = slug_condicao;
     }
 
-    Previsao(){}
+    PrevisaoModel(){}
 
     public String getData() {
         return data;
@@ -63,18 +63,18 @@ public class Previsao {
         this.slug_condicao = slug_condicao;
     }
 
-    public static Previsao readJSON(JSONObject json) throws JSONException {
+    public static PrevisaoModel readJSON(JSONObject json) throws JSONException {
         String data = json.getString("date");
         int t_max = json.getInt("max");
         int t_min = json.getInt("min");
         String descricao = json.getString("description");
         String slug_condicao = json.getString("condition");
 
-        return new Previsao(data, t_max, t_min, descricao, slug_condicao);
+        return new PrevisaoModel(data, t_max, t_min, descricao, slug_condicao);
     }
 
-    public static Previsao fromMap(Map<String, Object> previsaoMap) {
-        return new Previsao(
+    public static PrevisaoModel fromMap(Map<String, Object> previsaoMap) {
+        return new PrevisaoModel(
                 (String) previsaoMap.get("date"),
                 Integer.parseInt(previsaoMap.get("max").toString()),
                 Integer.parseInt(previsaoMap.get("min").toString()),

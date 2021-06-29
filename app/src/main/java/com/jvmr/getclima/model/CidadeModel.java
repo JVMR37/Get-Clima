@@ -19,9 +19,9 @@ public class CidadeModel {
     private String velocidade_vento;
     private String slug_condicao;
     private String city;
-    private List<Previsao> previsoes;
+    private List<PrevisaoModel> previsoes;
 
-    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, List<Previsao> previsoes) {
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, List<PrevisaoModel> previsoes) {
         this.id = -1;
         this.temperatura = temperatura;
         this.data = data;
@@ -108,11 +108,11 @@ public class CidadeModel {
         this.city = city;
     }
 
-    public List<Previsao> getPrevisoes() {
+    public List<PrevisaoModel> getPrevisoes() {
         return previsoes;
     }
 
-    public void setPrevisoes(List<Previsao> previsoes) {
+    public void setPrevisoes(List<PrevisaoModel> previsoes) {
         this.previsoes = previsoes;
     }
 
@@ -150,7 +150,7 @@ public class CidadeModel {
     }
 
     public static CidadeModel fromMap(Map<String, Object> cidadeMap) {
-        List<Previsao> previsoes = new ArrayList<>();
+        List<PrevisaoModel> previsoes = new ArrayList<>();
 
 
         return new CidadeModel(
@@ -176,12 +176,12 @@ public class CidadeModel {
         String slug_condicao = json.getString("condition_slug");
         String city = json.getString("city");
         JSONArray jsonPrevisoes = json.getJSONArray("forecast");
-        List<Previsao> previsoes = new ArrayList<>();
+        List<PrevisaoModel> previsoes = new ArrayList<>();
 
         for (int i = 0; i < jsonPrevisoes.length(); i++) {
             JSONObject jsonPrevisao = jsonPrevisoes.getJSONObject(i);
-            Previsao previsao = Previsao.readJSON(jsonPrevisao);
-            previsoes.add(previsao);
+            PrevisaoModel previsaoModel = PrevisaoModel.readJSON(jsonPrevisao);
+            previsoes.add(previsaoModel);
         }
 
         return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, previsoes);
