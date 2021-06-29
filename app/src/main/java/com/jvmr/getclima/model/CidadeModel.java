@@ -84,9 +84,11 @@ public class CidadeModel {
     private String velocidade_vento;
     private String slug_condicao;
     private String city;
+    private String sunrise;
+    private String sunset;
     private Previsao[] previsoes;
 
-    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, Previsao[] previsoes) {
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String sunrise, String sunset, Previsao[] previsoes) {
         this.id = -1;
         this.temperatura = temperatura;
         this.data = data;
@@ -96,6 +98,8 @@ public class CidadeModel {
         this.velocidade_vento = velocidade_vento;
         this.slug_condicao = slug_condicao;
         this.city = city;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
         this.previsoes = previsoes;
     }
 
@@ -171,6 +175,22 @@ public class CidadeModel {
         this.city = city;
     }
 
+    public String getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(String sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public String getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(String sunset) {
+        this.sunset = sunset;
+    }
+
     public Previsao[] getPrevisoes() {
         return previsoes;
     }
@@ -204,6 +224,8 @@ public class CidadeModel {
         String velocidade_vento = json.getString("wind_speedy");
         String slug_condicao = json.getString("condition_slug");
         String city = json.getString("city");
+        String sunrise = json.getString("sunrise");
+        String sunset = json.getString("sunset");
         JSONArray jsonPrevisoes = json.getJSONArray("forecast");
         Previsao[] previsoes = new Previsao[jsonPrevisoes.length()];
 
@@ -213,7 +235,7 @@ public class CidadeModel {
             previsoes[i] = previsao;
         }
 
-        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, previsoes);
+        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, sunrise, sunset, previsoes);
     }
 
     public static List<String> getEstados() {

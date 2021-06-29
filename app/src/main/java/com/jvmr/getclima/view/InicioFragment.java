@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import com.jvmr.getclima.R;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link InicioFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Simples {@link Fragment} subclasse.
+ * {@link InicioFragment#newInstance} método para
+ * criar uma instância desse fragmento
  */
 public class InicioFragment extends Fragment {
 
@@ -22,19 +22,17 @@ public class InicioFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     ImageView img;
 
     public InicioFragment() {
-        // Required empty public constructor
+        // Construtor vazio necessário
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Método para criar um nova instância desse fargmeto usando
+     * os parâmetros dados.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
@@ -63,7 +61,6 @@ public class InicioFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_inicio, container, false);
     }
 
