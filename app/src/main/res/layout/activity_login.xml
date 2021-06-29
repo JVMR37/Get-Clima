@@ -7,6 +7,19 @@
     tools:context=".view.LoginActivity"
     android:background="@drawable/background_principal">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="229dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/contentLogo"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_getclima" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="383dp"
@@ -14,11 +27,14 @@
         android:layout_marginStart="14dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="14dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/box"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/btnCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView">
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtEmail"
@@ -31,6 +47,7 @@
             android:hint="@string/hint_Email"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,7 +65,9 @@
             android:ems="10"
             android:hint="@string/hint_senha"
             app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black">
+            app:hintTextColor="@color/black"
+            app:endIconMode="password_toggle">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,29 +81,19 @@
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
             android:backgroundTint="@color/ligth_yellow"
-            android:textColor="@color/black"
             android:onClick="logar"
-            android:text="@string/btnLogin" />
+            android:text="@string/btnLogin"
+            android:textColor="@color/black" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="229dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_getclima"
-        android:contentDescription="@string/contentLogo"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="4dp"
+        android:gravity="center"
         android:text="@string/txtCadastro"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -95,21 +104,26 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
-        android:id="@+id/btnCadastrar"
-        style="@style/Widget.MaterialComponents.Button.Icon"
-        android:layout_width="166dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/ligth_yellow"
-        app:iconTint="@color/black"
-        android:onClick="abrirCadastro"
-        android:text="@string/btnCadastro"
-        android:textColor="@color/black"
-        app:icon="@drawable/ic_add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                android:id="@+id/btnCadastrar"
+                style="@style/Widget.MaterialComponents.Button.Icon"
+                android:layout_width="166dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/ligth_yellow"
+                android:onClick="abrirCadastro"
+                android:text="@string/btnCadastro"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_add"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,7 @@
     <string name="umidade">Umidade:</string>
     <string name="vento">Velocidade do vento:</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="min">Mín.: </string>
+    <string name="max">Máx.: </string>
 
 </resources>

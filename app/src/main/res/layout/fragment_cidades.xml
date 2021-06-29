@@ -49,5 +49,4 @@
         android:layout_marginStart="325dp"
         app:srcCompat="@drawable/ic_add"
         android:backgroundTint="@color/transparente"/>
-
 </RelativeLayout>
