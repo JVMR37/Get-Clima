@@ -22,10 +22,10 @@ import com.jvmr.getclima.model.UsuarioModel;
 
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    UsuarioModel usuarioModel;
+    private UsuarioModel usuarioModel;
     private TextInputLayout edtNome, edtEmail, edtSenha, edtConfirmaSenha;
-    FirebaseFirestore db;
-    Button btnCadastrar;
+    private FirebaseFirestore db;
+    private Button btnCadastrar;
 
 
     @Override
