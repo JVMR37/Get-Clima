@@ -19,9 +19,10 @@ public class CidadeModel {
     private String velocidade_vento;
     private String slug_condicao;
     private String city;
+    private String cityName;
     private List<PrevisaoModel> previsoes;
 
-    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, List<PrevisaoModel> previsoes) {
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String cityName, List<PrevisaoModel> previsoes) {
         this.id = -1;
         this.temperatura = temperatura;
         this.data = data;
@@ -31,10 +32,12 @@ public class CidadeModel {
         this.velocidade_vento = velocidade_vento;
         this.slug_condicao = slug_condicao;
         this.city = city;
+        this.cityName = cityName;
         this.previsoes = previsoes;
     }
 
-    CidadeModel(){}
+    CidadeModel() {
+    }
 
     public int getId() {
         return id;
@@ -108,6 +111,14 @@ public class CidadeModel {
         this.city = city;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
     public List<PrevisaoModel> getPrevisoes() {
         return previsoes;
     }
@@ -144,6 +155,7 @@ public class CidadeModel {
         map.put("velocidade_vento", this.velocidade_vento);
         map.put("slug_condicao", this.slug_condicao);
         map.put("city", this.city);
+        map.put("cityName", this.cityName);
         map.put("previsoes", this.previsoes);
 
         return map;
@@ -162,6 +174,7 @@ public class CidadeModel {
                 (String) cidadeMap.get("velocidade_vento"),
                 cidadeMap.get("slug_condicao").toString(),
                 (String) cidadeMap.get("city"),
+                (String) cidadeMap.get("cityName"),
                 new ArrayList<>()
         );
     }
@@ -175,6 +188,7 @@ public class CidadeModel {
         String velocidade_vento = json.getString("wind_speedy");
         String slug_condicao = json.getString("condition_slug");
         String city = json.getString("city");
+        String cityName = json.getString("city_name");
         JSONArray jsonPrevisoes = json.getJSONArray("forecast");
         List<PrevisaoModel> previsoes = new ArrayList<>();
 
@@ -184,7 +198,7 @@ public class CidadeModel {
             previsoes.add(previsaoModel);
         }
 
-        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, previsoes);
+        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, cityName, previsoes);
     }
 
     public static List<String> getEstados() {
