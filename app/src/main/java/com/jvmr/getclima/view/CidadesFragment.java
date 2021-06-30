@@ -1,6 +1,7 @@
 package com.jvmr.getclima.view;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jvmr.getclima.R;
+import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.model.UsuarioModel;
 import com.jvmr.getclima.service.UsuarioService;
@@ -42,14 +44,14 @@ public class CidadesFragment extends Fragment {
     private ListView lvCidadesAdd;
     private TextView txtAddCidade;
     private ImageButton ibtnAddCidade;
-    private String novaCidade;
+    private String novaCidade = "", estado = "";
     private UsuarioService userInstance;
-
+    private HGDataSource hg;
+    private List <String> cidadesAdd;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_cidades, container, false);
     }
 
@@ -59,13 +61,17 @@ public class CidadesFragment extends Fragment {
 
         spnrCidades = (Spinner) view.findViewById(R.id.spnrCidades);
         spnrEstados = (Spinner) view.findViewById(R.id.spnrEstados);
-        lvCidadesAdd = (ListView) view.findViewById(R.id.lvCidades);
+        lvCidadesAdd = view.findViewById(R.id.lvCidades);
         txtAddCidade = view.findViewById(R.id.txtAddCidade);
         ibtnAddCidade = view.findViewById(R.id.ibtnAddCidade);
         userInstance = UsuarioService.getInstance();
 
         fbAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        hg = HGDataSource.getInstance();
+
+        cidadesAdd = new ArrayList<>();
+        cidadesAdd = userInstance.getUsuarioModel().getNomeCidadesList();
 
         ibtnAddCidade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +88,11 @@ public class CidadesFragment extends Fragment {
 
                 ArrayAdapter<String> adpt_cidades = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, cidades);
                 spnrCidades.setAdapter(adpt_cidades);
-                novaCidade = spnrCidades.getSelectedItem().toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
+                estado = "";
                 selecaoEstados();
             }
         });
@@ -94,12 +100,23 @@ public class CidadesFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 novaCidade = spnrCidades.getSelectedItem().toString();
+                estado = spnrEstados.getSelectedItem().toString();
                 txtAddCidade.setText(novaCidade);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                txtAddCidade.setText("Escolha uma cidade");
+                novaCidade = "";
+                estado = "";
+                txtAddCidade.setText(R.string.escolha);
+            }
+        });
+
+        lvCidadesAdd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("-------------------> "+cidadesAdd.get(position));
+                //TODO: consulta api
             }
         });
 
@@ -121,25 +138,74 @@ public class CidadesFragment extends Fragment {
 
 
     public void cidadesAdicionadas(){
-        List <String> cidadesAdd = new ArrayList<>();
-        cidadesAdd = userInstance.getUsuarioModel().getCidadesIds();
         if(cidadesAdd.isEmpty()){
             Toast.makeText(getActivity(), "Você ainda não tem cidades adicionadas!!",
                     Toast.LENGTH_LONG).show();
-            return;
         }
-        CostumeArrayAdapter adpt = new CostumeArrayAdapter(requireActivity(), cidadesAdd);
-        lvCidadesAdd.setAdapter(adpt);
+
+        else {
+            CostumeArrayAdapter adpt = new CostumeArrayAdapter(requireActivity(), cidadesAdd);
+            adpt.setAdpt(adpt);
+            lvCidadesAdd.setAdapter(adpt);
+        }
     }
 
     public void addCidade(){
         UsuarioModel usuarioModel = userInstance.getUsuarioModel();
-        List <String> cidadesAdd =usuarioModel.getCidadesIds();
 
-        cidadesAdd.add(novaCidade);
-        usuarioModel.setCidadesIds(cidadesAdd);
+        if(novaCidade.equals("")){
+            Toast.makeText(getActivity(), "Selecione uma cidade",
+                    Toast.LENGTH_SHORT).show();
+        }
 
+        else if(cidadesAdd.contains(novaCidade)){
+            Toast.makeText(getActivity(), "Cidade já adicionada",
+                    Toast.LENGTH_SHORT).show();
+            novaCidade = "";
+            estado = "";
+        }
+
+        else{
+            usuarioModel.addCidadeToList(novaCidade);
+
+            FirebaseUser user = fbAuth.getCurrentUser();
+            assert user != null;
+            db.collection("users")
+                    .document(user.getUid())
+                    .set(usuarioModel.toMap())
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            cidadesAdicionadas();
+                            Toast.makeText(getActivity(), "Cidade adicionada com sucesso :)",
+                                    Toast.LENGTH_SHORT).show();
+                            txtAddCidade.setText(R.string.escolha);
+                            novaCidade = "";
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(),
+                                    "Não foi possível adiconar a cidade :(",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+        }
+
+    }
+
+    public static void removeCidade(CostumeArrayAdapter adpt, String cidade, List<String> cidades){
+        //System.out.println("---------------> "+ cidade);
+        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         FirebaseUser user = fbAuth.getCurrentUser();
+        UsuarioService userInstance = UsuarioService.getInstance();
+        UsuarioModel usuarioModel = userInstance.getUsuarioModel();
+
+        usuarioModel.removeCidades(cidade);
         assert user != null;
         db.collection("users")
                 .document(user.getUid())
@@ -147,49 +213,20 @@ public class CidadesFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        cidadesAdicionadas();
-                        Toast.makeText(getActivity(), "Cidade adicionada com sucesso :)",
-                                Toast.LENGTH_LONG).show();
-                        txtAddCidade.setText("Escolha uma cidade");
+                        adpt.notifyDataSetChanged();
+                        Toast.makeText(adpt.getContext(), "Cidade removida com sucesso :)",
+                                Toast.LENGTH_SHORT).show();
 
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(),
-                                "Não foi possível adiconar a cidade :(",
+                        Toast.makeText(adpt.getContext(),
+                                "Não foi possível remover a cidade :(",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-
-    }
-
-    public void selecionaCidade(){
-        lvCidadesAdd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO: Consulta api e passa infos para InicioFragment
-            }
-        });
-    }
-
-    public void deletaCidade(){
-        CostumeArrayAdapter.ViewHolder vh = new CostumeArrayAdapter.ViewHolder();
-        CostumeArrayAdapter.getIcon(vh, getView()).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),
-                        "TESTANDOOOO",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        UsuarioService userInstance = UsuarioService.getInstance();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseAuth fbAuth = FirebaseAuth.getInstance();
-
-        List<String> cidades = userInstance.getUsuarioModel().getCidadesIds();
 
     }
 
