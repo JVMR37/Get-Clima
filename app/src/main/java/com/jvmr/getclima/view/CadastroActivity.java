@@ -33,10 +33,10 @@ import com.jvmr.getclima.service.Utils;
 
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    UsuarioModel usuarioModel;
+    private UsuarioModel usuarioModel;
     private TextInputLayout edtNome, edtEmail, edtSenha, edtConfirmaSenha;
-    FirebaseFirestore db;
-    Button btnCadastrar;
+    private FirebaseFirestore db;
+    private Button btnCadastrar;
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -78,7 +78,7 @@ public class CadastroActivity extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         if (location != null) {
                             cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
-                            usuarioModel.addCidadeToList(cidadeAtual);
+                            usuarioModel.addCidadeToList(cidadeAtual.getCity());
                             saveWeatherForecastForCurrentCity(cidadeAtual);
                         }
                     }

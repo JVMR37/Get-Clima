@@ -12,16 +12,27 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.jvmr.getclima.R;
+import com.jvmr.getclima.model.UsuarioModel;
+import com.jvmr.getclima.service.UsuarioService;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser fbUser;
+    private FirebaseFirestore db;
     private TextView txtNomeUsuario;
+    private UsuarioModel user;
+    private UsuarioService instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +48,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.txtNomeUsuario);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        txtNomeUsuario = findViewById(R.id.txtNomeUsuario);
-        //TODO: recuperar nome do usuário
+        fbUser = firebaseAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        instance = UsuarioService.getInstance();
+        db.collection("users").document(fbUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(UsuarioModel.class);
+                instance.setUsuarioModel(user);
+                navUsername.setText(instance.getUsuarioModel().getNomeCompleto());
+            }
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -52,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             navigationView.setCheckedItem(R.id.nav_inicio);
         }
     }
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -85,6 +108,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    public void addNome(){
+        if(instance != null){
+            txtNomeUsuario.setText(instance.getUsuarioModel().getNomeCompleto());
         }
     }
 
