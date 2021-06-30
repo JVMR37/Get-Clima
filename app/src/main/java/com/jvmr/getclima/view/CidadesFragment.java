@@ -235,7 +235,6 @@ public class CidadesFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 
 
