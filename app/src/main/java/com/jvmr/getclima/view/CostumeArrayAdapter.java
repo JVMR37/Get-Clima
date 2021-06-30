@@ -1,6 +1,5 @@
 package com.jvmr.getclima.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +16,8 @@ import com.jvmr.getclima.R;
 import java.util.List;
 
 public class CostumeArrayAdapter  extends ArrayAdapter {
-    List<String> cidades;
-    Context context;
+    private List<String> cidades;
+    private Context context;
 
     public CostumeArrayAdapter(@NonNull Context context, List<String> cidades) {
         super(context, R.layout.listview_item);
@@ -32,26 +30,20 @@ public class CostumeArrayAdapter  extends ArrayAdapter {
         return cidades.size();
     }
 
+    @Override
+    public Object getItem(int pos) {
+        return cidades.get(pos);
+    }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         ViewHolder vh = new ViewHolder();
-
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_item, parent, false);
 
             vh.cidade = (TextView) convertView.findViewById(R.id.txtCidade);
-            vh.img_trash = (ImageView) convertView.findViewById(R.id.imgRemove);
-
-            vh.img_trash.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v){
-                   //TODO: remoção de cidade salva
-                    Toast.makeText(context, "Cidade removida com sucesso!!",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
 
             convertView.setTag(vh);
         }
@@ -68,6 +60,10 @@ public class CostumeArrayAdapter  extends ArrayAdapter {
     static class ViewHolder{
         TextView cidade;
         ImageView img_trash;
+    }
+
+    public static ImageView getIcon(ViewHolder vh, View view){
+        return vh.img_trash = (ImageView) view.findViewById(R.id.imgRemove);
     }
 
 }

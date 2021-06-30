@@ -77,7 +77,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:backgroundTint="@color/ligth_yellow"
-            android:onClick="salvarMudancas"
             android:text="@string/btnSalvar" />
     </LinearLayout>
 
