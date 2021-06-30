@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -116,7 +118,13 @@ public class CidadesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("-------------------> "+cidadesAdd.get(position));
-                //TODO: consulta api
+                String [] cidadeEstado = cidadesAdd.get(position).split(",\\s");
+                System.out.println("-------------------> "+cidadeEstado[0]+"---------->"+cidadeEstado[1]);
+                CidadeModel cidadeModel = hg.buscarCidadePorNomeEstado(cidadeEstado[0], cidadeEstado[1]);
+                System.out.println("-------------------> "+cidadeModel.toString());
+                //TODO: passar a cidade escolhida pra tela inicial
+
+
             }
         });
 
@@ -166,7 +174,7 @@ public class CidadesFragment extends Fragment {
         }
 
         else{
-            usuarioModel.addCidadeToList(novaCidade);
+            usuarioModel.addCidadeToList(novaCidade+", "+estado);
 
             FirebaseUser user = fbAuth.getCurrentUser();
             assert user != null;
