@@ -78,7 +78,7 @@ public class CadastroActivity extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         if (location != null) {
                             cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
-                            usuarioModel.addCidadeToList(cidadeAtual);
+                            usuarioModel.addCidadeToList(cidadeAtual.getCity());
                             saveWeatherForecastForCurrentCity(cidadeAtual);
                         }
                     }
