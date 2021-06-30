@@ -43,7 +43,6 @@ public class HGDataSource {
 
         try {
             String query = "&city_name=" + cidade + "," + estado;
-            String query2 = query.replaceAll(" ", "%20").replaceAll(",", "%2C");
             retorno = new HttpService().execute(baseURL + "?key=" + key + query).get();
             JSONObject reader = new JSONObject(retorno.toString());
             JSONObject results = reader.getJSONObject("results");
