@@ -45,8 +45,14 @@ public class UsuarioModel {
         return nomeCidadesList;
     }
 
-    public void addCidadeToList(CidadeModel novaCidade) {
-        nomeCidadesList.add(novaCidade.getCity());
+    public void addCidadeToList(String novaCidade) {
+        //nomeCidadesList.add(novaCidade.getCity());
+        nomeCidadesList.add(novaCidade);
+    }
+
+    public void removeCidades(String cidade) {
+        //nomeCidadesList.add(novaCidade.getCity());
+        nomeCidadesList.remove(cidade);
     }
 
     public void setNomeCidadesList(List<String> nomeCidadesList) {
