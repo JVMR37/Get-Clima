@@ -21,6 +21,7 @@
     <string name="vazio">ㅤ</string>
     <string name="umidade">Umidade:</string>
     <string name="vento">Velocidade do vento:</string>
+    <string name="escolha">Escolha uma cidade</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
