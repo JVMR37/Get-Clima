@@ -26,11 +26,11 @@ import com.jvmr.getclima.model.UsuarioModel;
 import com.jvmr.getclima.service.UsuarioService;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private TextView nomeUsuario;
     private DrawerLayout drawer;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser fbUser;
     private FirebaseFirestore db;
+    private TextView txtNomeUsuario;
     private UsuarioModel user;
     private UsuarioService instance;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
-        nomeUsuario = (TextView) headerView.findViewById(R.id.txtNomeUsuario);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.txtNomeUsuario);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(UsuarioModel.class);
                 instance.setUsuarioModel(user);
-                nomeUsuario.setText(instance.getUsuarioModel().getNomeCompleto());
+                navUsername.setText(instance.getUsuarioModel().getNomeCompleto());
             }
         });
 
@@ -111,6 +111,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public void addNome(){
+        if(instance != null){
+            txtNomeUsuario.setText(instance.getUsuarioModel().getNomeCompleto());
+        }
+    }
 
 
 }
