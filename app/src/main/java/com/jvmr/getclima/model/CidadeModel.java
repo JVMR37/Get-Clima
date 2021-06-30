@@ -20,9 +20,11 @@ public class CidadeModel {
     private String slug_condicao;
     private String city;
     private String cityName;
+    private String sunrise;
+    private String sunset;
     private List<PrevisaoModel> previsoes;
 
-    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String cityName, List<PrevisaoModel> previsoes) {
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String cityName, List<PrevisaoModel> previsoes, String sunrise, String sunset) {
         this.id = -1;
         this.temperatura = temperatura;
         this.data = data;
@@ -32,6 +34,8 @@ public class CidadeModel {
         this.velocidade_vento = velocidade_vento;
         this.slug_condicao = slug_condicao;
         this.city = city;
+        this.sunrise = sunrise;
+        this.sunset = sunset;
         this.cityName = cityName;
         this.previsoes = previsoes;
     }
@@ -127,6 +131,24 @@ public class CidadeModel {
         this.previsoes = previsoes;
     }
 
+
+    public String getSunrise() {
+        return sunrise;
+    }
+
+    public void setSunrise(String sunrise) {
+        this.sunrise = sunrise;
+    }
+
+    public String getSunset() {
+        return sunset;
+    }
+
+    public void setSunset(String sunset) {
+        this.sunset = sunset;
+    }
+
+
     @Override
     public String toString() {
         return "CidadeModel{" +
@@ -157,6 +179,8 @@ public class CidadeModel {
         map.put("city", this.city);
         map.put("cityName", this.cityName);
         map.put("previsoes", this.previsoes);
+        map.put("sunrise", this.sunrise);
+        map.put("sunset", this.sunset);
 
         return map;
     }
@@ -175,7 +199,9 @@ public class CidadeModel {
                 cidadeMap.get("slug_condicao").toString(),
                 (String) cidadeMap.get("city"),
                 (String) cidadeMap.get("cityName"),
-                new ArrayList<>()
+                new ArrayList<>(),
+                (String) cidadeMap.get("sunrise"),
+                (String) cidadeMap.get("sunset")
         );
     }
 
@@ -189,6 +215,8 @@ public class CidadeModel {
         String slug_condicao = json.getString("condition_slug");
         String city = json.getString("city");
         String cityName = json.getString("city_name");
+        String sunrise = json.getString("sunrise");
+        String sunset = json.getString("sunset");
         JSONArray jsonPrevisoes = json.getJSONArray("forecast");
         List<PrevisaoModel> previsoes = new ArrayList<>();
 
@@ -198,7 +226,7 @@ public class CidadeModel {
             previsoes.add(previsaoModel);
         }
 
-        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, cityName, previsoes);
+        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, cityName, previsoes, sunrise, sunset);
     }
 
     public static List<String> getEstados() {
