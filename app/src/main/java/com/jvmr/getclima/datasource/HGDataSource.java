@@ -21,7 +21,7 @@ public class HGDataSource {
         return instance;
     }
 
-    public CidadeModel buscarCidadePorGeoLoc(float latitude, float longitude) {
+    public CidadeModel buscarCidadePorGeoLoc(double latitude, double longitude) {
         CidadeModel cidadeModel = null;
         StringBuilder retorno;
 

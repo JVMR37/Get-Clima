@@ -1,13 +1,21 @@
 package com.jvmr.getclima.view;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -18,7 +26,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jvmr.getclima.R;
+import com.jvmr.getclima.datasource.HGDataSource;
+import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.model.UsuarioModel;
+import com.jvmr.getclima.service.Utils;
 
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -27,11 +38,25 @@ public class CadastroActivity extends AppCompatActivity {
     FirebaseFirestore db;
     Button btnCadastrar;
 
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private static final int LOCATION_PERMISSED_REQUEST_CODE = 1234;
+    private Boolean mLocationPermissionGranted = false;
+
+    private FusedLocationProviderClient fusedLocationClient;
+    CidadeModel cidadeAtual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        HGDataSource api = HGDataSource.getInstance();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            getLocationPermission();
+        }
 
         edtNome = findViewById(R.id.edtNome);
         edtEmail = findViewById(R.id.edtNovoEmail);
@@ -46,6 +71,18 @@ public class CadastroActivity extends AppCompatActivity {
         btnCadastrar.setOnClickListener(
                 v -> cadastrarUsuario()
         );
+
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
+                            usuarioModel.addCidadeToList(cidadeAtual);
+                            saveWeatherForecastForCurrentCity(cidadeAtual);
+                        }
+                    }
+                });
     }
 
     public void cadastrarUsuario() {
@@ -54,7 +91,7 @@ public class CadastroActivity extends AppCompatActivity {
         usuarioModel.setNomeCompleto(edtNome.getEditText().getText().toString());
 
         //Tratamento caso o usuário tente criar uma senha com menos de 6 caracteres
-        if(password.length()<6){
+        if (password.length() < 6) {
             Toast.makeText(CadastroActivity.this, "A senha precisa ter no minímo 6 caracteres",
                     Toast.LENGTH_LONG).show();
             return;
@@ -76,7 +113,9 @@ public class CadastroActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso :)",
                                                     Toast.LENGTH_SHORT).show();
-
+                                            finish();
+                                            Intent it = new Intent(CadastroActivity.this, MainActivity.class);// --> leva para a tela principal
+                                            startActivity(it);
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {
@@ -89,14 +128,46 @@ public class CadastroActivity extends AppCompatActivity {
                                     });
 
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w("FirebaseAuth", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(CadastroActivity.this, "Nao foi possível realizar o Cadastro :(",
                                     Toast.LENGTH_SHORT).show();
-                            // updateUI(null);
                         }
                     }
                 });
 
+    }
+
+    private void getLocationPermission() {
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                    COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                mLocationPermissionGranted = true;
+            } else {
+                ActivityCompat.requestPermissions(this, permissions,
+                        LOCATION_PERMISSED_REQUEST_CODE);
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, permissions,
+                    LOCATION_PERMISSED_REQUEST_CODE);
+        }
+    }
+
+    public void saveWeatherForecastForCurrentCity(CidadeModel cidadeAtual) {
+        String date = Utils.getDateNow();
+
+        db.collection("weatherForecasts")
+                .document(date + "-" + cidadeAtual.getCity())
+                .set(cidadeAtual.toMap())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        System.out.println("===============================");
+                        System.out.println("Deu certo lá bro");
+                        System.out.println("===============================");
+                    }
+                });
     }
 }

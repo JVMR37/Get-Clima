@@ -1,7 +1,7 @@
 package com.jvmr.getclima.model;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.jvmr.getclima.service.Untils;
+import com.jvmr.getclima.service.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,13 +12,13 @@ public class UsuarioModel {
     private String nomeCompleto;
     private String email;
     private String fotoPerfilURL;
-    private List<String> cidadesIds = new ArrayList<>();
+    private List<String> nomeCidadesList = new ArrayList<>();
     private FirebaseUser firebaseUser;
 
-    public UsuarioModel(String nomeCompleto, String email, List<String> cidadesIds) {
+    public UsuarioModel(String nomeCompleto, String email, List<String> nomeCidadesList) {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
-        this.cidadesIds = cidadesIds;
+        this.nomeCidadesList = nomeCidadesList;
     }
 
     public UsuarioModel() {
@@ -41,12 +41,16 @@ public class UsuarioModel {
         this.email = email;
     }
 
-    public List<String> getCidadesIds() {
-        return cidadesIds;
+    public List<String> getNomeCidadesList() {
+        return nomeCidadesList;
     }
 
-    public void setCidadesIds(List<String> cidadesIds) {
-        this.cidadesIds = cidadesIds;
+    public void addCidadeToList(CidadeModel novaCidade) {
+        nomeCidadesList.add(novaCidade.getCity());
+    }
+
+    public void setNomeCidadesList(List<String> nomeCidadesList) {
+        this.nomeCidadesList = nomeCidadesList;
     }
 
     public Map<String, Object> toMap() {
@@ -54,7 +58,7 @@ public class UsuarioModel {
 
         userMap.put("nomeCompleto", getNomeCompleto());
         userMap.put("email", getEmail());
-        userMap.put("cidadesIds", getCidadesIds());
+        userMap.put("nomeCidadesList", getNomeCidadesList());
 
         return userMap;
     }
@@ -62,7 +66,7 @@ public class UsuarioModel {
     public UsuarioModel fromMap(Map<String, Object> usuarioMap) {
         List<String> cidadesIds = new ArrayList<>();
 
-        cidadesIds = Untils.convertObjectToListString(usuarioMap.get("cidadesIds"));
+        cidadesIds = Utils.convertObjectToListString(usuarioMap.get("nomeCidadesList"));
 
         UsuarioModel usuarioModel = new UsuarioModel(String.valueOf(usuarioMap.get("nomeCompleto")),
                 String.valueOf(usuarioMap.get("email")),
@@ -77,7 +81,7 @@ public class UsuarioModel {
                 "nomeCompleto='" + nomeCompleto + '\'' +
                 ", email='" + email + '\'' +
                 ", fotoPerfilURL='" + fotoPerfilURL + '\'' +
-                ", cidadesIds=" + cidadesIds +
+                ", nomeCidadesList=" + nomeCidadesList +
                 ", firebaseUser=" + firebaseUser +
                 '}';
     }
