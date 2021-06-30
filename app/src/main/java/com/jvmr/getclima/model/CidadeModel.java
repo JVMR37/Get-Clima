@@ -5,74 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
-class Previsao {
-    private String data;
-    private int temp_max;
-    private int temp_min;
-    private String descricao;
-    private String slug_condicao;
-
-    public Previsao(String data, int temp_max, int temp_min, String descricao, String slug_condicao) {
-        this.data = data;
-        this.temp_max = temp_max;
-        this.temp_min = temp_min;
-        this.descricao = descricao;
-        this.slug_condicao = slug_condicao;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public int getTemp_max() {
-        return temp_max;
-    }
-
-    public void setTemp_max(int temp_max) {
-        this.temp_max = temp_max;
-    }
-
-    public int getTemp_min() {
-        return temp_min;
-    }
-
-    public void setTemp_min(int temp_min) {
-        this.temp_min = temp_min;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getSlug_condicao() {
-        return slug_condicao;
-    }
-
-    public void setSlug_condicao(String slug_condicao) {
-        this.slug_condicao = slug_condicao;
-    }
-
-    public static Previsao readJSON(JSONObject json) throws JSONException {
-        String data = json.getString("date");
-        int t_max = json.getInt("max");
-        int t_min = json.getInt("min");
-        String descricao = json.getString("description");
-        String slug_condicao = json.getString("condition");
-
-        return new Previsao(data, t_max, t_min, descricao, slug_condicao);
-    }
-}
+import java.util.Map;
 
 public class CidadeModel {
     private int id;
@@ -84,11 +19,12 @@ public class CidadeModel {
     private String velocidade_vento;
     private String slug_condicao;
     private String city;
+    private String cityName;
     private String sunrise;
     private String sunset;
-    private Previsao[] previsoes;
+    private List<PrevisaoModel> previsoes;
 
-    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String sunrise, String sunset, Previsao[] previsoes) {
+    public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String cityName, List<PrevisaoModel> previsoes, String sunrise, String sunset) {
         this.id = -1;
         this.temperatura = temperatura;
         this.data = data;
@@ -100,7 +36,11 @@ public class CidadeModel {
         this.city = city;
         this.sunrise = sunrise;
         this.sunset = sunset;
+        this.cityName = cityName;
         this.previsoes = previsoes;
+    }
+
+    CidadeModel() {
     }
 
     public int getId() {
@@ -175,6 +115,23 @@ public class CidadeModel {
         this.city = city;
     }
 
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public List<PrevisaoModel> getPrevisoes() {
+        return previsoes;
+    }
+
+    public void setPrevisoes(List<PrevisaoModel> previsoes) {
+        this.previsoes = previsoes;
+    }
+
+
     public String getSunrise() {
         return sunrise;
     }
@@ -191,13 +148,6 @@ public class CidadeModel {
         this.sunset = sunset;
     }
 
-    public Previsao[] getPrevisoes() {
-        return previsoes;
-    }
-
-    public void setPrevisoes(Previsao[] previsoes) {
-        this.previsoes = previsoes;
-    }
 
     @Override
     public String toString() {
@@ -211,8 +161,48 @@ public class CidadeModel {
                 ", velocidade_vento='" + velocidade_vento + '\'' +
                 ", slug_condicao='" + slug_condicao + '\'' +
                 ", city='" + city + '\'' +
-                ", previsoes=" + Arrays.toString(previsoes) +
+                ", previsoes=" + previsoes.toString() +
                 '}';
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("id", this.id);
+        map.put("temperatura", this.temperatura);
+        map.put("data", this.data);
+        map.put("cod_condicao", this.cod_condicao);
+        map.put("descricao", this.descricao);
+        map.put("umidade", this.umidade);
+        map.put("velocidade_vento", this.velocidade_vento);
+        map.put("slug_condicao", this.slug_condicao);
+        map.put("city", this.city);
+        map.put("cityName", this.cityName);
+        map.put("previsoes", this.previsoes);
+        map.put("sunrise", this.sunrise);
+        map.put("sunset", this.sunset);
+
+        return map;
+    }
+
+    public static CidadeModel fromMap(Map<String, Object> cidadeMap) {
+        List<PrevisaoModel> previsoes = new ArrayList<>();
+
+
+        return new CidadeModel(
+                Integer.parseInt(cidadeMap.get("temperatura").toString()),
+                (String) cidadeMap.get("data"),
+                (String) cidadeMap.get("cod_condicao"),
+                (String) cidadeMap.get("descricao"),
+                Integer.parseInt(cidadeMap.get("umidade").toString()),
+                (String) cidadeMap.get("velocidade_vento"),
+                cidadeMap.get("slug_condicao").toString(),
+                (String) cidadeMap.get("city"),
+                (String) cidadeMap.get("cityName"),
+                new ArrayList<>(),
+                (String) cidadeMap.get("sunrise"),
+                (String) cidadeMap.get("sunset")
+        );
     }
 
     public static CidadeModel readJSON(JSONObject json) throws JSONException {
@@ -224,18 +214,19 @@ public class CidadeModel {
         String velocidade_vento = json.getString("wind_speedy");
         String slug_condicao = json.getString("condition_slug");
         String city = json.getString("city");
+        String cityName = json.getString("city_name");
         String sunrise = json.getString("sunrise");
         String sunset = json.getString("sunset");
         JSONArray jsonPrevisoes = json.getJSONArray("forecast");
-        Previsao[] previsoes = new Previsao[jsonPrevisoes.length()];
+        List<PrevisaoModel> previsoes = new ArrayList<>();
 
         for (int i = 0; i < jsonPrevisoes.length(); i++) {
             JSONObject jsonPrevisao = jsonPrevisoes.getJSONObject(i);
-            Previsao previsao = Previsao.readJSON(jsonPrevisao);
-            previsoes[i] = previsao;
+            PrevisaoModel previsaoModel = PrevisaoModel.readJSON(jsonPrevisao);
+            previsoes.add(previsaoModel);
         }
 
-        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, sunrise, sunset, previsoes);
+        return new CidadeModel(temperatura, data, cod_condicao, descricao, umidade, velocidade_vento, slug_condicao, city, cityName, previsoes, sunrise, sunset);
     }
 
     public static List<String> getEstados() {

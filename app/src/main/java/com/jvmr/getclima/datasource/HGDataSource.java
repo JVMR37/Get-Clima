@@ -21,12 +21,29 @@ public class HGDataSource {
         return instance;
     }
 
-    public CidadeModel buscarCidadePorGeoLoc(float latitude, float longitude) {
+    public CidadeModel buscarCidadePorGeoLoc(double latitude, double longitude) {
         CidadeModel cidadeModel = null;
         StringBuilder retorno;
 
         try {
             retorno = new HttpService().execute(baseURL + "?key=" + key + "&lat=" + latitude + "&lon=" + longitude + "user_ip=remote").get();
+            JSONObject reader = new JSONObject(retorno.toString());
+            JSONObject results = reader.getJSONObject("results");
+            cidadeModel = CidadeModel.readJSON(results);
+        } catch (InterruptedException | ExecutionException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        return cidadeModel;
+    }
+
+    public CidadeModel buscarCidadePorNomeEstado(String cidade, String estado) {
+        CidadeModel cidadeModel = null;
+        StringBuilder retorno;
+
+        try {
+            String query = "&city_name=" + cidade + "," + estado;
+            retorno = new HttpService().execute(baseURL + "?key=" + key + query).get();
             JSONObject reader = new JSONObject(retorno.toString());
             JSONObject results = reader.getJSONObject("results");
             cidadeModel = CidadeModel.readJSON(results);
