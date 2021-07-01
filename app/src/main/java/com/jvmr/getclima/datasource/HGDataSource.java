@@ -10,7 +10,7 @@ import java.util.concurrent.ExecutionException;
 
 public class HGDataSource {
     static final private String baseURL = "https://api.hgbrasil.com/weather/";
-    static final private String key = "3a0b1b47";
+    static final private String key = "0d1e6304";
 
     private static HGDataSource instance;
 
@@ -33,7 +33,6 @@ public class HGDataSource {
         } catch (InterruptedException | ExecutionException | JSONException e) {
             e.printStackTrace();
         }
-
         return cidadeModel;
     }
 

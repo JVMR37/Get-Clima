@@ -104,22 +104,22 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
-                android:id="@+id/btnCadastrar"
-                style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="166dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/ligth_yellow"
-                android:onClick="abrirCadastro"
-                android:text="@string/btnCadastro"
-                android:textColor="@color/black"
-                app:icon="@drawable/ic_add"
-                app:iconTint="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:id="@+id/btnCadastrar"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="171dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/ligth_yellow"
+        android:onClick="abrirCadastro"
+        android:text="@string/btnCadastro"
+        android:textColor="@color/black"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 

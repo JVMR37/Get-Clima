@@ -38,9 +38,9 @@ public class HttpService extends AsyncTask<String, Void, StringBuilder> {
             e.printStackTrace();
         }
 
-        System.out.println("\n============================");
-        System.out.println(resposta.toString());
-        System.out.println("============================\n");
+//        System.out.println("\n============================");
+//        System.out.println(resposta.toString());
+//        System.out.println("============================\n");
 
 
         return resposta;

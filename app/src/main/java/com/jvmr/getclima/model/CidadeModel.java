@@ -4,12 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CidadeModel {
+public class CidadeModel implements Serializable{
     private int id;
     private int temperatura;
     private String data;
@@ -23,6 +24,7 @@ public class CidadeModel {
     private String sunrise;
     private String sunset;
     private List<PrevisaoModel> previsoes;
+    private int pos;
 
     public CidadeModel(Integer temperatura, String data, String cod_condicao, String descricao, int umidade, String velocidade_vento, String slug_condicao, String city, String cityName, List<PrevisaoModel> previsoes, String sunrise, String sunset) {
         this.id = -1;
@@ -38,6 +40,7 @@ public class CidadeModel {
         this.sunset = sunset;
         this.cityName = cityName;
         this.previsoes = previsoes;
+        this.pos = -1;
     }
 
     CidadeModel() {
@@ -131,7 +134,6 @@ public class CidadeModel {
         this.previsoes = previsoes;
     }
 
-
     public String getSunrise() {
         return sunrise;
     }
@@ -148,6 +150,14 @@ public class CidadeModel {
         this.sunset = sunset;
     }
 
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
+    }
+
 
     @Override
     public String toString() {
@@ -161,6 +171,7 @@ public class CidadeModel {
                 ", velocidade_vento='" + velocidade_vento + '\'' +
                 ", slug_condicao='" + slug_condicao + '\'' +
                 ", city='" + city + '\'' +
+                ", cityName='" + cityName + '\'' +
                 ", previsoes=" + previsoes.toString() +
                 '}';
     }
