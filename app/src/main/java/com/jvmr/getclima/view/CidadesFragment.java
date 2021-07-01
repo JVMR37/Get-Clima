@@ -32,7 +32,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.jvmr.getclima.R;
 import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
+import com.jvmr.getclima.model.PrevisaoModel;
 import com.jvmr.getclima.model.UsuarioModel;
+import com.jvmr.getclima.service.PrevisaoTempoService;
 import com.jvmr.getclima.service.UsuarioService;
 
 import java.util.ArrayList;
@@ -48,6 +50,7 @@ public class CidadesFragment extends Fragment {
     private ImageButton ibtnAddCidade;
     private String novaCidade = "", estado = "";
     private UsuarioService userInstance;
+    private PrevisaoTempoService previsaoInstance;
     private HGDataSource hg;
     private List <String> cidadesAdd;
 
@@ -67,6 +70,7 @@ public class CidadesFragment extends Fragment {
         txtAddCidade = view.findViewById(R.id.txtAddCidade);
         ibtnAddCidade = view.findViewById(R.id.ibtnAddCidade);
         userInstance = UsuarioService.getInstance();
+        previsaoInstance = PrevisaoTempoService.getInstance();
 
         fbAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
@@ -117,14 +121,12 @@ public class CidadesFragment extends Fragment {
         lvCidadesAdd.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("-------------------> "+cidadesAdd.get(position));
                 String [] cidadeEstado = cidadesAdd.get(position).split(",\\s");
-                System.out.println("-------------------> "+cidadeEstado[0]+"---------->"+cidadeEstado[1]);
                 CidadeModel cidadeModel = hg.buscarCidadePorNomeEstado(cidadeEstado[0], cidadeEstado[1]);
-                System.out.println("-------------------> "+cidadeModel.toString());
-                //TODO: passar a cidade escolhida pra tela inicial
-
-
+                cidadeModel.setPos(position);
+                previsaoInstance.setCidadeModel(cidadeModel);
+                Intent it = new Intent(getActivity(), MainActivity.class);
+                startActivity(it);
             }
         });
 
@@ -235,6 +237,16 @@ public class CidadesFragment extends Fragment {
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    public static CidadesFragment newInstance(int pos) {
+        CidadesFragment fragment = new CidadesFragment();
+
+        Bundle args = new Bundle();
+        args.putInt("position", pos);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
 
