@@ -94,4 +94,15 @@ public class PrevisaoModel {
 
         return map;
     }
+
+    @Override
+    public String toString() {
+        return "PrevisaoModel{" +
+                "data='" + data + '\'' +
+                ", temp_max=" + temp_max +
+                ", temp_min=" + temp_min +
+                ", descricao='" + descricao + '\'' +
+                ", slug_condicao='" + slug_condicao + '\'' +
+                '}';
+    }
 }

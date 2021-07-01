@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.jvmr.getclima.R;
+import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.model.UsuarioModel;
 import com.jvmr.getclima.service.UsuarioService;
 
@@ -30,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth firebaseAuth;
     private FirebaseUser fbUser;
     private FirebaseFirestore db;
-    private TextView txtNomeUsuario;
     private UsuarioModel user;
     private UsuarioService instance;
 
@@ -67,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navUsername.setText(instance.getUsuarioModel().getNomeCompleto());
             }
         });
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new InicioFragment()).commit();
@@ -75,6 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -108,12 +115,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    public void addNome(){
-        if(instance != null){
-            txtNomeUsuario.setText(instance.getUsuarioModel().getNomeCompleto());
         }
     }
 

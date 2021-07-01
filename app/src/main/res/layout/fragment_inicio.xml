@@ -353,7 +353,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txtData3"
+                    android:id="@+id/txtData2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -378,7 +378,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/txtMinimo3"
+                        android:id="@+id/txtMinimo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -397,7 +397,7 @@
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/txtMaximo3"
+                        android:id="@+id/txtMaximo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
