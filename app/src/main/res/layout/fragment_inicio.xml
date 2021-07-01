@@ -386,15 +386,6 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/txtCelciusMin1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="C"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
-
-                    <TextView
                         android:id="@+id/txtM2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -422,14 +413,6 @@
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtCelciusMax1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="C"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -483,14 +466,6 @@
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtCelciusMin2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="C"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/txtM6"
@@ -520,14 +495,7 @@
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/txtCelciusMax2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="C"
-                        android:textSize="17sp"
-                        android:textStyle="normal" />
+
 
 
                 </LinearLayout>

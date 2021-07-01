@@ -30,7 +30,9 @@ public class HttpService extends AsyncTask<String, Void, StringBuilder> {
 
             Scanner scanner = new Scanner(URL.openStream());
             while (scanner.hasNext()) {
-                resposta.append(scanner.next());
+                String a = scanner.nextLine();
+                //System.out.println("\n============reposta 123123================>"+a);
+                resposta.append(a);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -38,9 +40,9 @@ public class HttpService extends AsyncTask<String, Void, StringBuilder> {
             e.printStackTrace();
         }
 
-//        System.out.println("\n============================");
+//       System.out.println("\n============reposta 123123================");
 //        System.out.println(resposta.toString());
-//        System.out.println("============================\n");
+//       System.out.println("============================\n");
 
 
         return resposta;

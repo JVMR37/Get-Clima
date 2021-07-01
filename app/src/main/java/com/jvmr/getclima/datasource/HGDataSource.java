@@ -27,6 +27,11 @@ public class HGDataSource {
 
         try {
             retorno = new HttpService().execute(baseURL + "?key=" + key + "&lat=" + latitude + "&lon=" + longitude + "user_ip=remote").get();
+
+//            System.out.println("------------------retorno-------------------->");
+//            System.out.println("\t\t\t"+retorno);
+//            System.out.println("------------------retorno-------------------->");
+
             JSONObject reader = new JSONObject(retorno.toString());
             JSONObject results = reader.getJSONObject("results");
             cidadeModel = CidadeModel.readJSON(results);

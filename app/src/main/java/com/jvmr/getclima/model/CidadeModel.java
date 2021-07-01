@@ -217,6 +217,11 @@ public class CidadeModel implements Serializable{
     }
 
     public static CidadeModel readJSON(JSONObject json) throws JSONException {
+
+//        System.out.println("------------------JSON-------------------->");
+//        System.out.println("\t\t\t"+json.toString());
+//        System.out.println("------------------JSON-------------------->");
+
         int temperatura = json.getInt("temp");
         String data = json.getString("date");
         String cod_condicao = json.getString("condition_code");

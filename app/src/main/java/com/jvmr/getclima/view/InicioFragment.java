@@ -25,6 +25,10 @@ import com.jvmr.getclima.model.UsuarioModel;
 import com.jvmr.getclima.service.PrevisaoTempoService;
 import com.jvmr.getclima.service.UsuarioService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -78,15 +82,18 @@ public class InicioFragment extends Fragment {
         super.onResume();
         if(cidadeModel != null){
             setInfo();
+
         }
         else{
+
+            System.out.println("ENTREI2222222222==============================");
             cidadeDefault();
         }
     }
 
     @SuppressLint("SetTextI18n")
     public void setInfo(){
-        assert usuarioService.getUsuarioModel() != null;
+        int hoje = getData();
         cidades = usuarioService.getUsuarioModel().getNomeCidadesList();
         position = cidadeModel.getPos();
 
@@ -99,21 +106,38 @@ public class InicioFragment extends Fragment {
 
         condicao.setText(cidadeModel.getDescricao());
         temp.setText(Integer.toString(cidadeModel.getTemperatura()));
-        min.setText(Integer.toString(cidadeModel.getPrevisoes().get(0).getTemp_min()));
-        max.setText(Integer.toString(cidadeModel.getPrevisoes().get(0).getTemp_max()));
+        min.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje).getTemp_min()));
+        max.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje).getTemp_max()));
         nascerSol.setText(cidadeModel.getSunrise());
         porSol.setText(cidadeModel.getSunset());
         umidade.setText(Integer.toString(cidadeModel.getUmidade()));
         vento.setText(cidadeModel.getVelocidade_vento());
-        data1.setText(cidadeModel.getPrevisoes().get(1).getData());
-        min1.setText(Integer.toString(cidadeModel.getPrevisoes().get(1).getTemp_min()));
-        max1.setText(Integer.toString(cidadeModel.getPrevisoes().get(1).getTemp_max()));
-        data2.setText(cidadeModel.getPrevisoes().get(2).getData());
-        min2.setText(Integer.toString(cidadeModel.getPrevisoes().get(2).getTemp_min()));
-        max2.setText(Integer.toString(cidadeModel.getPrevisoes().get(2).getTemp_max()));
+        data1.setText(cidadeModel.getPrevisoes().get(hoje+1).getData());
+        min1.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje+1).getTemp_min()));
+        max1.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje+1).getTemp_max()));
+        data2.setText(cidadeModel.getPrevisoes().get(hoje+2).getData());
+        min2.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje+2).getTemp_min()));
+        max2.setText(Integer.toString(cidadeModel.getPrevisoes().get(hoje+2).getTemp_max()));
 
         setIcon();
 
+    }
+
+    public int getData(){
+        List<PrevisaoModel> previsoes = cidadeModel.getPrevisoes();
+
+        Locale loc = new Locale("pt", "BR");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM", loc);
+        Date date = new Date();
+        String hoje = formatter.format(date);
+        for (int i = 0; i < previsoes.size(); i++) {
+
+            if(hoje.equals(previsoes.get(i).getData())){
+                System.out.println("---------------DATE-------------->"+i);
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void setIcon(){
@@ -164,18 +188,27 @@ public class InicioFragment extends Fragment {
         FirebaseUser fbUser = fbAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         hg = HGDataSource.getInstance();
-        usuarioService = UsuarioService.getInstance();
         previsaoInstance = PrevisaoTempoService.getInstance();
+
+//        db.collection("weatherForecasts")
+
+
+
+
+
+
 
         db.collection("users").document(fbUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-
                 UsuarioModel user = documentSnapshot.toObject(UsuarioModel.class);
+                assert user != null;
                 List<String> cidadesUF  = user.getNomeCidadesList();
                 String [] cidadeEstado = cidadesUF.get(0).split(",\\s");
-                CidadeModel cidadeDefault = hg.buscarCidadePorNomeEstado(cidadeEstado[0], cidadeEstado[1]);
+                //System.out.println("----------------------->"+cidadesUF);
 
+                CidadeModel cidadeDefault = hg.buscarCidadePorNomeEstado(cidadeEstado[0], cidadeEstado[1]);
+                System.out.println("----------DEFAULTT------------->"+cidadeDefault);
                 position = -1;
                 cidadeDefault.setPos(position);
 
