@@ -9,14 +9,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="409dp"
+        android:layout_width="403dp"
         android:layout_height="360dp"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="4dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -61,16 +60,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="C"
+                android:text="T"
                 android:textSize="65sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtO"
+                android:id="@+id/txtGraus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="º"
+                android:textSize="65sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCelcius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="C"
                 android:textSize="65sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -101,6 +109,24 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/txtGrausMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="º"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCelciusMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="C"
+                android:textSize="18sp"
+                android:textStyle="normal" />
+
+            <TextView
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,6 +144,24 @@
                 android:layout_weight="0"
                 android:text="0"
                 android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtGrausMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="º"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtCelciusMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="C"
+                android:textSize="18sp"
+                android:textStyle="normal" />
         </LinearLayout>
     </LinearLayout>
 
@@ -237,6 +281,16 @@
                 android:text="0"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtPorcentagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:text="%"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -275,7 +329,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="361dp"
+            android:layout_width="366dp"
             android:layout_height="83dp"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
@@ -295,7 +349,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="Data"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -312,7 +366,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="0"
                         android:text="@string/min"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/txtMinimo1"
@@ -321,34 +375,68 @@
                         android:layout_gravity="center"
                         android:layout_weight="0"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
+                    <TextView
+                        android:id="@+id/txtGrausMin1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="º"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCelciusMin1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="C"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/txtM2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="7dp"
                         android:layout_weight="0"
                         android:text="@string/max"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/txtMaximo1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="15dp"
                         android:layout_weight="0"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/txtGrausMax1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="º"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCelciusMax1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="C"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="12dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -358,7 +446,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="Data"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -375,7 +463,7 @@
                         android:layout_gravity="center"
                         android:layout_weight="0"
                         android:text="@string/min"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/txtMinimo2"
@@ -384,27 +472,64 @@
                         android:layout_gravity="center"
                         android:layout_weight="0"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/txtGrausMin2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="º"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCelciusMin2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="C"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/txtM6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="7dp"
                         android:layout_weight="0"
                         android:text="@string/max"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
 
                     <TextView
                         android:id="@+id/txtMaximo2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginRight="15dp"
                         android:layout_weight="0"
                         android:text="0"
-                        android:textSize="18sp" />
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/txtGrausMax2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="º"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtCelciusMax2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="C"
+                        android:textSize="17sp"
+                        android:textStyle="normal" />
+
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
