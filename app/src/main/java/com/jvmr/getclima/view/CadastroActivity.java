@@ -3,6 +3,8 @@ package com.jvmr.getclima.view;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +31,11 @@ import com.jvmr.getclima.R;
 import com.jvmr.getclima.datasource.HGDataSource;
 import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.model.UsuarioModel;
+import com.jvmr.getclima.service.PrevisaoTempoService;
 import com.jvmr.getclima.service.Utils;
+
+import java.io.IOException;
+import java.util.List;
 
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -37,6 +43,7 @@ public class CadastroActivity extends AppCompatActivity {
     private TextInputLayout edtNome, edtEmail, edtSenha, edtConfirmaSenha;
     private FirebaseFirestore db;
     private Button btnCadastrar;
+    private PrevisaoTempoService previsaoInstance;
 
     private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
     private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
@@ -53,6 +60,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         HGDataSource api = HGDataSource.getInstance();
+        previsaoInstance = PrevisaoTempoService.getInstance();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             getLocationPermission();
@@ -78,11 +86,37 @@ public class CadastroActivity extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         if (location != null) {
                             cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
-                            usuarioModel.addCidadeToList(cidadeAtual.getCity());
+
+                            Address address = null;
+                            try {
+                                address = buscarEndereco(location.getLatitude(), location.getLongitude());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            String [] cidadeUF = cidadeAtual.getCity().split(",");
+                            String uf = cidadeUF[1];
+                            assert address != null;
+                            String cidadeAdd = address.getSubAdminArea()+", "+uf;
+                            cidadeAtual.setCityName(address.getSubAdminArea());
+                            usuarioModel.addCidadeToList(cidadeAdd);
                             saveWeatherForecastForCurrentCity(cidadeAtual);
+                            previsaoInstance.setCidadeModel(cidadeAtual);
                         }
                     }
                 });
+    }
+
+    public Address buscarEndereco(double lati, double longi)
+            throws IOException {
+        Geocoder geocoder;
+        Address address=null;
+        List<Address> add;
+        geocoder = new Geocoder(getApplicationContext());
+        add = geocoder.getFromLocation(lati,longi,1);
+        if(add.size() > 0){
+            address = add.get(0);
+        }
+        return address;
     }
 
     public void cadastrarUsuario() {
@@ -164,9 +198,9 @@ public class CadastroActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        System.out.println("===============================");
-                        System.out.println("Deu certo lá bro");
-                        System.out.println("===============================");
+//                        System.out.println("===============================");
+//                        System.out.println("Deu certo lá bro");
+//                        System.out.println("===============================");
                     }
                 });
     }
