@@ -29,6 +29,8 @@ import com.jvmr.getclima.model.CidadeModel;
 import com.jvmr.getclima.model.UsuarioModel;
 import com.jvmr.getclima.service.UsuarioService;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private FirebaseAuth firebaseAuth;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(UsuarioModel.class);
                 instance.setUsuarioModel(user);
-                navUsername.setText(instance.getUsuarioModel().getNomeCompleto());
+                navUsername.setText(instance.getUsuarioModel().getNomeCompleto().split(" ")[0]);
             }
         });
         if (savedInstanceState == null) {
@@ -101,7 +103,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_logout:
                 firebaseAuth.signOut();
-                finish();
+                Intent it = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(it);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

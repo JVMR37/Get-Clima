@@ -86,37 +86,15 @@ public class CadastroActivity extends AppCompatActivity {
                     public void onSuccess(Location location) {
                         if (location != null) {
                             cidadeAtual = api.buscarCidadePorGeoLoc(location.getLatitude(), location.getLongitude());
+                            //System.out.println("------------CIDADEATUAL--------->"+cidadeAtual);
 
-                            Address address = null;
-                            try {
-                                address = buscarEndereco(location.getLatitude(), location.getLongitude());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            String [] cidadeUF = cidadeAtual.getCity().split(",");
-                            String uf = cidadeUF[1];
-                            assert address != null;
-                            String cidadeAdd = address.getSubAdminArea()+", "+uf;
-                            cidadeAtual.setCityName(address.getSubAdminArea());
-                            usuarioModel.addCidadeToList(cidadeAdd);
+                            usuarioModel.addCidadeToList(cidadeAtual.getCity());
+                            //System.out.println("------------CIDADEATUAL--------->"+usuarioModel);
                             saveWeatherForecastForCurrentCity(cidadeAtual);
                             previsaoInstance.setCidadeModel(cidadeAtual);
                         }
                     }
                 });
-    }
-
-    public Address buscarEndereco(double lati, double longi)
-            throws IOException {
-        Geocoder geocoder;
-        Address address=null;
-        List<Address> add;
-        geocoder = new Geocoder(getApplicationContext());
-        add = geocoder.getFromLocation(lati,longi,1);
-        if(add.size() > 0){
-            address = add.get(0);
-        }
-        return address;
     }
 
     public void cadastrarUsuario() {

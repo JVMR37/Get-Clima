@@ -239,15 +239,5 @@ public class CidadesFragment extends Fragment {
                 });
     }
 
-    public static CidadesFragment newInstance(int pos) {
-        CidadesFragment fragment = new CidadesFragment();
-
-        Bundle args = new Bundle();
-        args.putInt("position", pos);
-        fragment.setArguments(args);
-
-        return fragment;
-    }
-
 
 }
