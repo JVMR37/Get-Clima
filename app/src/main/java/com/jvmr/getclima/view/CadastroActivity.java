@@ -99,13 +99,21 @@ public class CadastroActivity extends AppCompatActivity {
 
     public void cadastrarUsuario() {
         String password = edtSenha.getEditText().getText().toString();
-        usuarioModel.setEmail(edtEmail.getEditText().getText().toString());
-        usuarioModel.setNomeCompleto(edtNome.getEditText().getText().toString());
+        String email = edtEmail.getEditText().getText().toString();
+        String nome = edtNome.getEditText().getText().toString();
+        usuarioModel.setEmail(email);
+        usuarioModel.setNomeCompleto(nome);
 
+        //Tratamento caso o usuário tente salvar sem preencher os campos
+        if(email.equals("") || nome.equals("") || password.equals("")){
+            Toast.makeText(CadastroActivity.this, "É necessário preencher todos os campos",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         //Tratamento caso o usuário tente criar uma senha com menos de 6 caracteres
         if(password.length()<6){
             Toast.makeText(CadastroActivity.this, "A senha precisa ter no mínimo 6 caracteres",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 
