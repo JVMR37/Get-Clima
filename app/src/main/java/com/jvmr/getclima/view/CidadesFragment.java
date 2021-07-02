@@ -77,7 +77,9 @@ public class CidadesFragment extends Fragment {
         hg = HGDataSource.getInstance();
 
         cidadesAdd = new ArrayList<>();
-        cidadesAdd = userInstance.getUsuarioModel().getNomeCidadesList();
+        if(userInstance.getUsuarioModel()!=null){
+            cidadesAdd = userInstance.getUsuarioModel().getNomeCidadesList();
+        }
 
         ibtnAddCidade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,6 +216,23 @@ public class CidadesFragment extends Fragment {
         FirebaseUser user = fbAuth.getCurrentUser();
         UsuarioService userInstance = UsuarioService.getInstance();
         UsuarioModel usuarioModel = userInstance.getUsuarioModel();
+
+        if (cidade.equals(usuarioModel.getNomeCidadesList().get(0))){
+            AlertDialog.Builder confirm = new AlertDialog.Builder(adpt.getContext());
+            confirm.setTitle("Atenção!");
+            confirm.setMessage("Não é possível remover sua cidade local");
+            confirm.setCancelable(true);
+            confirm.setPositiveButton(
+                    "Voltar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = confirm.create();
+            alert.show();
+            return;
+        }
 
         usuarioModel.removeCidades(cidade);
         assert user != null;
